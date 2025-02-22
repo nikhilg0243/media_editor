@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import BlurImage from "@/components/blur-image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { type Photo } from "@/app/api/[[...route]]/city";
+import { Photo } from "@/db/schema/photos";
 import VectorTopLeftAnimation from "@/components/vector-top-left-animation";
 
 interface Props {

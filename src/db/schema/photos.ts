@@ -136,3 +136,7 @@ export const photosUpdateSchema = createUpdateSchema(photos)
 // Types
 export type Photo = InferSelectModel<typeof photos>;
 export type CitySet = InferSelectModel<typeof citySets>;
+// with photos & cover photo
+export type CitySetWithPhotos = CitySet & { photos: Photo[] } & {
+  coverPhoto: Photo;
+};
