@@ -29,7 +29,7 @@ A modern, open-source photography blog platform built with the latest web techno
 - 🌈 Dark
 - 🌈 Light
 
-<img src="https://github.com/ECarry/photography-website/blob/main/screen/theme.jpg?raw=true" alt="page">
+<img src="https://github.com/ECarry/photography-website/blob/main/screen/theme.png?raw=true" alt="page">
 
 ## 🛠️ Tech Stack
 
