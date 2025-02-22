@@ -155,5 +155,4 @@ If you find this project helpful, please give it a ⭐️ on GitHub!
 - [x] Discover page with tRPC
 - [x] Dashboard photos & photo id page with tRPC
 - [ ] Blog page with tRPC
-- [ ] Travel page with tRPC
-- [ ] Post page with tRPC
+- [x] Travel page with tRPC
