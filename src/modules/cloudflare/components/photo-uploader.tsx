@@ -3,16 +3,17 @@
 import { usePhotoUpload } from "../hooks/usePhotoUpload";
 import { PhotoForm } from "./photo-form";
 import { UploadZone } from "./upload-zone";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface PhotoUploaderProps {
   onUploadSuccess?: (url: string) => void;
   folder?: string;
+  onCreateSuccess?: () => void;
 }
 
 export function PhotoUploader({
   onUploadSuccess,
   folder = "test",
+  onCreateSuccess,
 }: PhotoUploaderProps) {
   const { isUploading, uploadedImageUrl, exif, imageInfo, handleUpload } =
     usePhotoUpload({
@@ -22,9 +23,12 @@ export function PhotoUploader({
 
   if (uploadedImageUrl && imageInfo) {
     return (
-      <ScrollArea className="pr-4">
-        <PhotoForm exif={exif} imageInfo={imageInfo} url={uploadedImageUrl} />
-      </ScrollArea>
+      <PhotoForm
+        exif={exif}
+        imageInfo={imageInfo}
+        url={uploadedImageUrl}
+        onCreateSuccess={onCreateSuccess}
+      />
     );
   }
 

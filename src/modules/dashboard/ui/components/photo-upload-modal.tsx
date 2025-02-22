@@ -2,6 +2,7 @@
 
 import { ResponsiveModal } from "@/components/responsive-modal";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { PhotoUploader } from "@/modules/cloudflare/components/photo-uploader";
 import { ImagePlus } from "lucide-react";
 import { useState } from "react";
@@ -17,7 +18,9 @@ export const PhotoUploadModal = () => {
         onOpenChange={() => setIsUploading(false)}
         className="h-[80vh] w-[80vw] max-w-none"
       >
-        <PhotoUploader />
+        <ScrollArea className="pr-4">
+          <PhotoUploader onCreateSuccess={() => setIsUploading(false)} />
+        </ScrollArea>
       </ResponsiveModal>
       <Button
         onClick={() => setIsUploading(true)}

@@ -2,37 +2,9 @@ import { z } from "zod";
 import { cache } from "react";
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
-
-// S3 client
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-
-const requiredEnvVars = [
-  "CLOUDFLARE_R2_ENDPOINT",
-  "CLOUDFLARE_R2_ACCESS_KEY_ID",
-  "CLOUDFLARE_R2_SECRET_ACCESS_KEY",
-  "CLOUDFLARE_R2_BUCKET_NAME",
-  "CLOUDFLARE_R2_PUBLIC_URL",
-] as const;
-
-requiredEnvVars.forEach((envVar) => {
-  if (!process.env[envVar]) {
-    throw new TRPCError({
-      code: "INTERNAL_SERVER_ERROR",
-      message: `${envVar} is not configured`,
-    });
-  }
-});
-
-// Initialize S3 client with Cloudflare R2 configuration
-const s3Client = new S3Client({
-  region: "auto",
-  endpoint: process.env.CLOUDFLARE_R2_ENDPOINT,
-  credentials: {
-    accessKeyId: process.env.CLOUDFLARE_R2_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY!,
-  },
-});
+import { s3Client } from "@/lib/s3-client";
 
 /**
  * Generate a public URL for accessing uploaded photos

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Hono } from "hono";
 import { db } from "@/db/drizzle";
-import { and, desc, eq, sql } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import { zValidator } from "@hono/zod-validator";
 import {
   photosInsertSchema,
@@ -108,117 +108,6 @@ const app = new Hono<{
       );
     }
   })
-  /**
-   * DELETE /photos/:id
-   * Delete a photo from the database
-   * @param {string} id - The ID of the photo to delete
-   * @returns {Object} The deleted photo
-   */
-  .delete(
-    "/:id",
-    zValidator("param", z.object({ id: z.string() })),
-    async (c) => {
-      const { id } = c.req.valid("param");
-      const user = c.get("user");
-
-      if (!user) {
-        return c.json({ success: false, error: "Unauthorized" }, 401);
-      }
-
-      try {
-        // 1. 先获取照片信息
-        const photoToDelete = await db
-          .select()
-          .from(photos)
-          .where(eq(photos.id, id));
-
-        if (photoToDelete.length === 0) {
-          return c.json({ success: false, error: "Photo not found" }, 404);
-        }
-
-        const photo = photoToDelete[0];
-
-        // 2. 如果照片有地理信息，先更新对应的城市集合
-        if (photo.country && photo.city) {
-          // 2.1 先找到对应的城市集合
-          const citySet = await db
-            .select()
-            .from(citySets)
-            .where(
-              and(
-                eq(citySets.country, photo.country),
-                eq(citySets.city, photo.city)
-              )
-            )
-            .limit(1);
-
-          if (citySet.length > 0) {
-            // 2.2 如果这是封面照片，先找一个新的封面
-            if (citySet[0].coverPhotoId === photo.id) {
-              // 查找同一城市的其他照片作为新封面
-              const newCoverPhoto = await db
-                .select()
-                .from(photos)
-                .where(
-                  and(
-                    eq(photos.country, photo.country),
-                    eq(photos.city, photo.city),
-                    sql`${photos.id} != ${photo.id}`
-                  )
-                )
-                .orderBy(desc(photos.dateTimeOriginal))
-                .limit(1);
-
-              // 更新城市集合
-              await db
-                .update(citySets)
-                .set({
-                  photoCount: sql`${citySets.photoCount} - 1`,
-                  coverPhotoId:
-                    newCoverPhoto.length > 0 ? newCoverPhoto[0].id : null,
-                  updatedAt: new Date(),
-                })
-                .where(
-                  and(
-                    eq(citySets.country, photo.country),
-                    eq(citySets.city, photo.city)
-                  )
-                );
-            } else {
-              // 不是封面照片，只更新计数
-              await db
-                .update(citySets)
-                .set({
-                  photoCount: sql`${citySets.photoCount} - 1`,
-                  updatedAt: new Date(),
-                })
-                .where(
-                  and(
-                    eq(citySets.country, photo.country),
-                    eq(citySets.city, photo.city)
-                  )
-                );
-            }
-          }
-        }
-
-        // 3. 最后删除照片
-        await db.delete(photos).where(eq(photos.id, id));
-
-        return c.json({ success: true, data: photo });
-      } catch (error) {
-        console.error("Photo deletion error:", error);
-        return c.json(
-          {
-            success: false,
-            error: "Failed to delete photo",
-            details: error,
-          },
-          500
-        );
-      }
-    }
-  )
   /**
    * GET /photos/:id
    * Get a single photo from the database

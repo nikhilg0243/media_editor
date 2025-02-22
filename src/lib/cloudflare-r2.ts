@@ -24,9 +24,9 @@ class UploadError extends Error {
 
 export class CloudflareR2Client {
   /**
-   * 生成唯一的文件名
-   * @param originalFilename 原始文件名
-   * @returns 带有时间戳的唯一文件名
+   * generate a unique filename
+   * @param originalFilename the original filename
+   * @returns the unique filename
    */
   private generateUniqueFilename(originalFilename: string): string {
     const timestamp = Date.now();
@@ -36,9 +36,9 @@ export class CloudflareR2Client {
   }
 
   /**
-   * 验证文件
-   * @param file 要上传的文件
-   * @throws {UploadError} 如果文件验证失败
+   * validate file
+   * @param file the file to be validated
+   * @throws {UploadError} if file validation fails
    */
   private validateFile(file: File) {
     const MAX_FILE_SIZE = IMAGE_SIZE_LIMIT;
@@ -48,17 +48,17 @@ export class CloudflareR2Client {
       );
     }
 
-    // 验证文件类型
+    // validate file type
     if (!file.type.startsWith("image/")) {
       throw new UploadError("Only image files are allowed");
     }
   }
 
   /**
-   * 使用 XMLHttpRequest 上传文件并跟踪进度
-   * @param file 要上传的文件
-   * @param uploadUrl 预签名上传 URL
-   * @param onProgress 进度回调函数
+   *  XMLHttpRequest upload with progress
+   * @param file the file to be uploaded
+   * @param uploadUrl the upload url
+   * @param onProgress the progress callback
    */
   private async uploadWithProgress(
     file: File,
@@ -68,7 +68,7 @@ export class CloudflareR2Client {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
-      // 进度处理
+      // upload progress
       xhr.upload.addEventListener("progress", (event) => {
         if (event.lengthComputable) {
           const progress = Math.round((event.loaded / event.total) * 100);
@@ -76,7 +76,7 @@ export class CloudflareR2Client {
         }
       });
 
-      // 完成处理
+      // complete
       xhr.onload = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
           resolve();
@@ -90,7 +90,7 @@ export class CloudflareR2Client {
         }
       };
 
-      // 错误处理
+      // error
       xhr.onerror = () => {
         reject(new UploadError("Network error during upload"));
       };
@@ -99,20 +99,20 @@ export class CloudflareR2Client {
         reject(new UploadError("Upload timed out"));
       };
 
-      // 设置超时时间（30秒）
+      // timeout
       xhr.timeout = 30000;
 
-      // 发送请求
+      // send request
       xhr.open("PUT", uploadUrl);
       xhr.send(file);
     });
   }
 
   /**
-   * 上传文件到 R2
-   * @param options 上传选项
-   * @returns 上传结果，包含公共访问 URL
-   * @throws {UploadError} 如果上传过程中出现错误
+   * Upload file to Cloudflare R2
+   * @param options the upload options
+   * @returns the upload result, containing the public URL
+   * @throws {UploadError} if the upload fails
    */
   async upload({
     file,
@@ -121,20 +121,16 @@ export class CloudflareR2Client {
     getUploadUrl,
   }: UploadToR2Options): Promise<UploadToR2Result> {
     try {
-      // 1. 验证文件
       this.validateFile(file);
 
-      // 2. 生成唯一文件名
       const uniqueFilename = this.generateUniqueFilename(file.name);
 
-      // 3. 获取预签名 URL
       const { uploadUrl, publicUrl } = await getUploadUrl({
         filename: uniqueFilename,
         contentType: file.type,
         folder,
       });
 
-      // 4. 上传文件
       await this.uploadWithProgress(file, uploadUrl, onProgress);
 
       return { publicUrl };
@@ -150,5 +146,4 @@ export class CloudflareR2Client {
   }
 }
 
-// 导出单例实例
 export const cloudflareR2 = new CloudflareR2Client();
