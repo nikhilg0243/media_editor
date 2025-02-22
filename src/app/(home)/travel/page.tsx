@@ -9,7 +9,9 @@ export const metadata = {
 export const dynamic = "force-dynamic";
 
 const TravelPage = async () => {
-  void trpc.photos.getCitySetsTest.prefetch();
+  void trpc.photos.getCitySets.prefetchInfinite({
+    limit: 10,
+  });
 
   return (
     <HydrateClient>

@@ -312,25 +312,23 @@ export const photosRouter = createTRPCRouter({
     .query(async ({ input }) => {
       const { cursor, limit } = input;
 
-      const data = await db
-        .select()
-        .from(citySets)
-        .where(
-          and(
-            cursor
-              ? or(
-                  lt(citySets.updatedAt, cursor.updatedAt),
-                  and(
-                    eq(citySets.updatedAt, cursor.updatedAt),
-                    lt(photos.id, cursor.id)
-                  )
-                )
-              : undefined
-          )
-        )
-        .leftJoin(photos, eq(photos.id, citySets.coverPhotoId))
-        .orderBy(desc(citySets.updatedAt))
-        .limit(limit + 1);
+      const data = await db.query.citySets.findMany({
+        with: {
+          coverPhoto: true,
+          photos: true,
+        },
+        where: cursor
+          ? or(
+              lt(citySets.updatedAt, cursor.updatedAt),
+              and(
+                eq(citySets.updatedAt, cursor.updatedAt),
+                lt(citySets.id, cursor.id)
+              )
+            )
+          : undefined,
+        orderBy: [desc(citySets.updatedAt)],
+        limit: limit + 1,
+      });
 
       const hasMore = data.length > limit;
       // Remove the last item if there is more data
@@ -339,18 +337,13 @@ export const photosRouter = createTRPCRouter({
       const lastItem = items[items.length - 1];
       const nextCursor = hasMore
         ? {
-            id: lastItem.city_sets.id,
-            updatedAt: lastItem.city_sets.updatedAt,
+            id: lastItem.id,
+            updatedAt: lastItem.updatedAt,
           }
         : null;
 
       return { items, nextCursor };
     }),
-  getCitySetsTest: baseProcedure.query(async () => {
-    const data = await db.select().from(citySets);
-
-    return data;
-  }),
   getCitySetByCity: baseProcedure
     .input(
       z.object({

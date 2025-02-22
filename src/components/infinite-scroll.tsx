@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button } from "./ui/button";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { Loader2 } from "lucide-react";
 
 interface InfiniteScrollProps {
   isManual?: boolean;
@@ -35,16 +35,12 @@ export const InfiniteScroll = ({
   ]);
   return (
     <div className="flex flex-col items-center gap-4">
-      <div ref={targetRef} className="" />
+      <div ref={targetRef} />
 
       {hasNextPage ? (
-        <Button
-          variant="secondary"
-          disabled={!hasNextPage || isFetchingNextPage}
-          onClick={() => fetchNextPage()}
-        >
-          {isFetchingNextPage ? "Loading..." : "Load more"}
-        </Button>
+        <div className="flex items-center justify-center">
+          <Loader2 className="size-5 animate-spin opacity-75" />
+        </div>
       ) : null}
     </div>
   );

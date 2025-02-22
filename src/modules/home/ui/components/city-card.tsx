@@ -8,7 +8,7 @@ import { type Photo } from "@/db/schema/photos";
 
 interface Props {
   title: string;
-  coverPhoto: Photo | null;
+  coverPhoto: Photo;
 }
 
 const CityCard = ({ title, coverPhoto }: Props) => {

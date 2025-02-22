@@ -1,11 +1,11 @@
 import { useRouter } from "next/navigation";
 import { PiArrowRight } from "react-icons/pi";
 import TextScroll from "@/components/text-scroll";
-import { CitySet } from "@/db/schema/photos";
+import { CitySetWithPhotos } from "@/db/schema/photos";
 
 interface CityItemProps {
-  city: CitySet;
-  onMouseEnter: (city: CitySet) => void;
+  city: CitySetWithPhotos;
+  onMouseEnter: (city: CitySetWithPhotos) => void;
 }
 
 export const CityItem = ({ city, onMouseEnter }: CityItemProps) => {
@@ -19,7 +19,6 @@ export const CityItem = ({ city, onMouseEnter }: CityItemProps) => {
       onClick={() => router.push(`/travel/${city.city}`)}
     >
       <p className="text-xs lg:text-sm line-clamp-1">{city.city}</p>
-
       <div className="relative overflow-hidden flex justify-end">
         <div className="flex items-center gap-2 transform transition-transform duration-200 ease-in-out group-hover:-translate-x-7">
           <span className="font-light text-xs lg:text-sm whitespace-nowrap text-right">

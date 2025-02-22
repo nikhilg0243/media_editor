@@ -14,7 +14,7 @@ A modern, open-source photography blog platform built with the latest web techno
 - 🚀 Lightning-fast performance
 - 📍 Location-based photo organization
 - 🌐 SEO optimized
-- 🎯 API powered by Hono.js
+- 🎯 API powered by tRPC
 
 ## 📸 Screenshots
 

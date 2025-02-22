@@ -11,7 +11,7 @@ import { Introduction } from "../components/introduction";
 import { CityItem } from "../components/city-item";
 import { trpc } from "@/trpc/client";
 import { ErrorBoundary } from "react-error-boundary";
-import { CitySet } from "@/db/schema/photos";
+import { CitySetWithPhotos } from "@/db/schema/photos";
 
 export const TravelSection = () => {
   return (
@@ -24,19 +24,23 @@ export const TravelSection = () => {
 };
 
 const TravelSectionSuspense = () => {
-  const [activeCity, setActiveCity] = useState<CitySet | null>(null);
+  const [activeCity, setActiveCity] = useState<CitySetWithPhotos | null>(null);
 
-  const [data] = trpc.photos.getCitySetsTest.useSuspenseQuery();
+  const [data] = trpc.photos.getCitySets.useSuspenseQuery({
+    limit: 99,
+  });
+
+  console.log(data.items[0]);
 
   useEffect(() => {
-    if (!activeCity && data && data.length > 0) {
-      setActiveCity(data[0]);
+    if (!activeCity && data && data.items.length > 0) {
+      setActiveCity(data.items[0]);
     }
   }, [activeCity, data]);
 
   return (
     <>
-      <CoverPhoto citySet={activeCity || data[0]} />
+      <CoverPhoto citySet={activeCity || data.items[0]} citySets={data.items} />
 
       {/* Spacer for fixed left content */}
       <div className="hidden lg:block lg:w-1/2" />
@@ -47,13 +51,17 @@ const TravelSectionSuspense = () => {
           <Introduction />
         </PageTransitionItem>
 
-        <div className="space-y-3">
-          {data.map((city) => (
-            <PageTransitionItem key={city.id}>
-              <CityItem city={city} onMouseEnter={setActiveCity} />
-            </PageTransitionItem>
-          ))}
-        </div>
+        <PageTransitionItem>
+          <div className="space-y-3">
+            {data.items.map((city) => (
+              <CityItem
+                key={city.id}
+                city={city}
+                onMouseEnter={setActiveCity}
+              />
+            ))}
+          </div>
+        </PageTransitionItem>
 
         <PageTransitionItem>
           <Footer />

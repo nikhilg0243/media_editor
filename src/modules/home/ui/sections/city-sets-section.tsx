@@ -32,9 +32,9 @@ const CitySetsSectionSuspense = () => {
       {data.pages.map((page) =>
         page.items.map((item) => (
           <CityCard
-            key={item.city_sets.id}
-            title={item.city_sets.city}
-            coverPhoto={item.photos}
+            key={item.id}
+            title={item.city}
+            coverPhoto={item.coverPhoto}
           />
         ))
       )}
