@@ -256,6 +256,55 @@ export const photosRouter = createTRPCRouter({
                   lt(photos.updatedAt, cursor.updatedAt),
                   and(
                     eq(photos.updatedAt, cursor.updatedAt),
+                    eq(photos.visibility, "public"),
+                    lt(photos.id, cursor.id)
+                  )
+                )
+              : undefined
+          )
+        )
+        .orderBy(desc(photos.updatedAt))
+        .limit(limit + 1);
+
+      const hasMore = data.length > limit;
+      // Remove the last item if there is more data
+      const items = hasMore ? data.slice(0, -1) : data;
+      // Set the next cursor to the last item if there is more data
+      const lastItem = items[items.length - 1];
+      const nextCursor = hasMore
+        ? {
+            id: lastItem.id,
+            updatedAt: lastItem.updatedAt,
+          }
+        : null;
+
+      return { items, nextCursor };
+    }),
+  getManyWithPrivate: protectedProcedure
+    .input(
+      z.object({
+        cursor: z
+          .object({
+            id: z.string().uuid(),
+            updatedAt: z.date(),
+          })
+          .nullish(),
+        limit: z.number().min(1).max(100).default(10),
+      })
+    )
+    .query(async ({ input }) => {
+      const { cursor, limit } = input;
+
+      const data = await db
+        .select()
+        .from(photos)
+        .where(
+          and(
+            cursor
+              ? or(
+                  lt(photos.updatedAt, cursor.updatedAt),
+                  and(
+                    eq(photos.updatedAt, cursor.updatedAt),
                     lt(photos.id, cursor.id)
                   )
                 )
@@ -291,7 +340,9 @@ export const photosRouter = createTRPCRouter({
       const data = await db
         .select()
         .from(photos)
-        .where(eq(photos.isFavorite, true))
+        .where(
+          and(eq(photos.isFavorite, true), eq(photos.visibility, "public"))
+        )
         .orderBy(desc(photos.updatedAt))
         .limit(limit);
 

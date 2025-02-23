@@ -12,7 +12,7 @@ interface PhotoUploaderProps {
 
 export function PhotoUploader({
   onUploadSuccess,
-  folder = "test",
+  folder,
   onCreateSuccess,
 }: PhotoUploaderProps) {
   const { isUploading, uploadedImageUrl, exif, imageInfo, handleUpload } =

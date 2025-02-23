@@ -4,7 +4,7 @@ import PhotosView from "@/modules/photos/ui/views/photos-view";
 export const dynamic = "force-dynamic";
 
 const page = async () => {
-  void trpc.photos.getMany.prefetchInfinite({
+  void trpc.photos.getManyWithPrivate.prefetchInfinite({
     limit: 10,
   });
 

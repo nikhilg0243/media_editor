@@ -87,14 +87,15 @@ const PhotosSectionSkeleton = () => {
 };
 
 const PhotosSectionSuspense = () => {
-  const [photos, query] = trpc.photos.getMany.useSuspenseInfiniteQuery(
-    {
-      limit: 10,
-    },
-    {
-      getNextPageParam: (lastPage) => lastPage.nextCursor,
-    }
-  );
+  const [photos, query] =
+    trpc.photos.getManyWithPrivate.useSuspenseInfiniteQuery(
+      {
+        limit: 10,
+      },
+      {
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
+      }
+    );
 
   return (
     <div className="border-y">
