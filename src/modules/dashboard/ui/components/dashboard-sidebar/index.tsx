@@ -11,7 +11,12 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
-import { ImageIcon, LogOutIcon, User2Icon } from "lucide-react";
+import {
+  ImageIcon,
+  LayoutDashboard,
+  LogOutIcon,
+  User2Icon,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import { DashboardSidebarHeader } from "./dashboard-siderbar-header";
 
@@ -25,6 +30,19 @@ export const DashboardSidebar = () => {
           <SidebarGroupContent>
             <SidebarMenu>
               <DashboardSidebarHeader />
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  tooltip="Dashboard"
+                  isActive={pathname === "/dashboard"}
+                  asChild
+                >
+                  <Link href="/dashboard" className="flex items-center gap-4">
+                    <LayoutDashboard className="size-4" />
+                    <span className="text-sm">Dashboard</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
               <SidebarMenuItem>
                 <SidebarMenuButton
                   tooltip="Photos"
