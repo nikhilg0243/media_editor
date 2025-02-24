@@ -4,17 +4,21 @@ import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import Mapbox, { MapboxProps } from "@/components/map";
 import { trpc } from "@/trpc/client";
-import BlurImage from "@/components/blur-image";
 import { Blurhash } from "react-blurhash";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const TravelMap = () => {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={<TravelMapSkeleton />}>
       <ErrorBoundary fallback={<p>Something went wrong</p>}>
         <TravelMapSuspense />
       </ErrorBoundary>
     </Suspense>
   );
+};
+
+const TravelMapSkeleton = () => {
+  return <Skeleton className="size-full" />;
 };
 
 const TravelMapSuspense = () => {
@@ -39,7 +43,7 @@ const TravelMapSuspense = () => {
         latitude: photo.latitude,
         element: (
           <div className="relative group cursor-pointer -translate-x-1/2 -translate-y-1/2">
-            <div className="w-3 h-3 rounded-full overflow-hidden bg-background/20 ring-1 ring-white/20">
+            <div className="size-5 rounded-full overflow-hidden bg-background/20 ring-1 ring-white/20">
               <div
                 className="w-full h-full"
                 style={{ transform: "scale(1.2)" }}
@@ -59,22 +63,6 @@ const TravelMapSuspense = () => {
             </div>
           </div>
         ),
-        popupContent: (
-          <div className="group/popup">
-            <div className="relative">
-              <BlurImage
-                src={photo.url}
-                alt={photo.title}
-                width={500}
-                height={500}
-                quality={75}
-                priority
-                blurhash={photo.blurData}
-                className="cursor-pointer"
-              />
-            </div>
-          </div>
-        ),
       })) || [];
 
   return (
@@ -88,10 +76,10 @@ const TravelMapSuspense = () => {
       />
 
       {/* Gradients */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-muted" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-muted" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-1/5 bg-gradient-to-b from-muted" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-muted" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-background" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-background" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-1/6 bg-gradient-to-b from-background" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-background" />
     </div>
   );
 };

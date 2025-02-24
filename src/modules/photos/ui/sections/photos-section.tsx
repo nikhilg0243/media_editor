@@ -153,7 +153,14 @@ const PhotosSectionSuspense = () => {
                   </TableCell>
                   <TableCell className="text-xs truncate">
                     {photo.dateTimeOriginal &&
-                      new Date(photo.dateTimeOriginal).toLocaleDateString()}
+                      new Date(photo.dateTimeOriginal).toLocaleDateString(
+                        "en-US",
+                        {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                        }
+                      )}
                   </TableCell>
                   <TableCell>
                     <p className="line-clamp-1">
