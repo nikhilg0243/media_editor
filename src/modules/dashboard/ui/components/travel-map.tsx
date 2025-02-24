@@ -79,23 +79,19 @@ const TravelMapSuspense = () => {
 
   return (
     <div className="size-full relative overflow-hidden">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          maskImage:
-            "radial-gradient(circle at 50% 50%, black 30%, transparent 70%)",
-          WebkitMaskImage:
-            "radial-gradient(circle at 50% 50%, black 30%, transparent 70%)",
+      <Mapbox
+        markers={markers}
+        initialViewState={{
+          ...initialMarker,
+          zoom: 11,
         }}
-      >
-        <Mapbox
-          markers={markers}
-          initialViewState={{
-            ...initialMarker,
-            zoom: 11,
-          }}
-        />
-      </div>
+      />
+
+      {/* Gradients */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-muted" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-muted" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-1/5 bg-gradient-to-b from-muted" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-muted" />
     </div>
   );
 };
