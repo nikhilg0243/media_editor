@@ -1,7 +1,16 @@
 import { DashboardView } from "@/modules/dashboard/ui/views/dashboard-view";
+import { HydrateClient, trpc } from "@/trpc/server";
+
+export const dynamic = "force-dynamic";
 
 const DashboardPage = async () => {
-  return <DashboardView />;
+  void trpc.travel.getLatestTravel.prefetch();
+
+  return (
+    <HydrateClient>
+      <DashboardView />
+    </HydrateClient>
+  );
 };
 
 export default DashboardPage;

@@ -57,6 +57,13 @@
       "when": 1740125541381,
       "tag": "0007_glorious_zemo",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1740359722428,
+      "tag": "0008_abandoned_boomer",
+      "breakpoints": true
     }
   ]
 }
