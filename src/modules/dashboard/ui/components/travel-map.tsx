@@ -1,29 +1,15 @@
-"use client";
-
-import { Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
 import Mapbox, { MapboxProps } from "@/components/map";
-import { trpc } from "@/trpc/client";
+import { Photo } from "@/db/schema/photos";
 import { Blurhash } from "react-blurhash";
-import { Skeleton } from "@/components/ui/skeleton";
 
-export const TravelMap = () => {
-  return (
-    <Suspense fallback={<TravelMapSkeleton />}>
-      <ErrorBoundary fallback={<p>Something went wrong</p>}>
-        <TravelMapSuspense />
-      </ErrorBoundary>
-    </Suspense>
-  );
-};
+interface TravelMapProps {
+  data: {
+    coverPhoto: Photo;
+    photos: Photo[];
+  };
+}
 
-const TravelMapSkeleton = () => {
-  return <Skeleton className="size-full" />;
-};
-
-const TravelMapSuspense = () => {
-  const [data] = trpc.travel.getLatestTravel.useSuspenseQuery();
-
+export const TravelMap = ({ data }: TravelMapProps) => {
   const initialMarker = {
     longitude: data.coverPhoto.longitude ?? -122.4,
     latitude: data.coverPhoto.latitude ?? 37.74,

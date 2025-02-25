@@ -1,27 +1,17 @@
-"use client";
-
 import BlurImage from "@/components/blur-image";
 import { Photo } from "@/db/schema/photos";
-import { trpc } from "@/trpc/client";
-import { Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
 
-export const TravelPhotos = () => {
-  return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <ErrorBoundary fallback={<p>Something went wrong</p>}>
-        <TravelPhotosSuspense />
-      </ErrorBoundary>
-    </Suspense>
-  );
-};
+interface TravelPhotosProps {
+  data: {
+    coverPhoto: Photo;
+    photos: Photo[];
+  };
+}
 
-const TravelPhotosSuspense = () => {
-  const [latestTravel] = trpc.travel.getLatestTravel.useSuspenseQuery();
-
+export const TravelPhotos = ({ data }: TravelPhotosProps) => {
   return (
     <div className="grid grid-cols-1 gap-4 w-full border-r">
-      {latestTravel?.photos.slice(0, 4).map((photo: Photo) => (
+      {data.photos.slice(0, 4).map((photo: Photo) => (
         <div
           key={photo.id}
           className="flex items-center justify-between backdrop-blur-sm border-b last:border-b-0 px-4"
