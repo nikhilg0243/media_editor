@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 const page = async () => {
   void trpc.photos.getCitySets.prefetch({
-    limit: 6,
+    limit: 12,
   });
   void trpc.photos.getLikedPhotos.prefetch({
     limit: 10,

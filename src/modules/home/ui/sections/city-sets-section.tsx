@@ -20,7 +20,7 @@ export const CitySetsSection = () => {
 const CitySetsSectionSuspense = () => {
   const [data, query] = trpc.photos.getCitySets.useSuspenseInfiniteQuery(
     {
-      limit: 6,
+      limit: 12,
     },
     {
       getNextPageParam: (lastPage) => lastPage.nextCursor,

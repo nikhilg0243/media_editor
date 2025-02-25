@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic";
 
 const DashboardPage = async () => {
   void trpc.travel.getLatestTravel.prefetch();
+  void trpc.summary.getSummary.prefetch();
 
   return (
     <HydrateClient>

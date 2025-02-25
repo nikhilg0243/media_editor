@@ -1,11 +1,14 @@
-import React from "react";
-import { LineChartComponent } from "../components/line-chart";
+"use client";
+
+import { PhotosByYearLineChart } from "../components/photos-by-year-line-chart";
+import { trpc } from "@/trpc/client";
 
 export const ChartsSection = () => {
+  const [summary] = trpc.summary.getSummary.useSuspenseQuery();
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-      <LineChartComponent />
-      <LineChartComponent />
+      <PhotosByYearLineChart data={summary.data?.yearlyStats || {}} />
     </div>
   );
 };
