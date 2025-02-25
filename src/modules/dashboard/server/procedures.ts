@@ -8,26 +8,36 @@ export const summaryRouter = createTRPCRouter({
     const photosData = await db.select().from(photos);
     const citySetsData = await db.select().from(citySets);
 
-    // 获取年度统计数据
     const currentYear = new Date().getFullYear();
     const startYear = currentYear - 4;
 
-    const yearlyStats = await db.select({
-      year: sql<number>`EXTRACT(YEAR FROM ${photos.dateTimeOriginal})::integer`,
-      count: sql<number>`COUNT(*)::integer`,
-    })
-    .from(photos)
-    .where(sql`${photos.dateTimeOriginal} IS NOT NULL AND EXTRACT(YEAR FROM ${photos.dateTimeOriginal}) >= ${startYear}`)
-    .groupBy(sql`EXTRACT(YEAR FROM ${photos.dateTimeOriginal})`)
-    .orderBy(sql`EXTRACT(YEAR FROM ${photos.dateTimeOriginal}) DESC`);
+    const yearlyStats = await db
+      .select({
+        year: sql<number>`EXTRACT(YEAR FROM ${photos.dateTimeOriginal})::integer`,
+        count: sql<number>`COUNT(*)::integer`,
+      })
+      .from(photos)
+      .where(
+        sql`${photos.dateTimeOriginal} IS NOT NULL AND EXTRACT(YEAR FROM ${photos.dateTimeOriginal}) >= ${startYear}`
+      )
+      .groupBy(sql`EXTRACT(YEAR FROM ${photos.dateTimeOriginal})`)
+      .orderBy(sql`EXTRACT(YEAR FROM ${photos.dateTimeOriginal}) DESC`);
 
-    // 创建年度统计对象
+    const topCities = await db
+      .select({
+        city: citySets.city,
+        photoCount: citySets.photoCount,
+        countryCode: citySets.countryCode,
+      })
+      .from(citySets)
+      .orderBy(sql`${citySets.photoCount} DESC`)
+      .limit(10);
+
     const yearCounts: Record<number, number> = {};
     for (let year = currentYear; year >= startYear; year--) {
       yearCounts[year] = 0;
     }
 
-    // 填充实际数据
     yearlyStats.forEach(({ year, count }) => {
       if (year >= startYear && year <= currentYear) {
         yearCounts[year] = count;
@@ -39,6 +49,7 @@ export const summaryRouter = createTRPCRouter({
         photoCount: photosData.length,
         cityCount: citySetsData.length,
         yearlyStats: yearCounts,
+        topCities,
       },
     };
   }),

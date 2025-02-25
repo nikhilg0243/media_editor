@@ -83,7 +83,7 @@ export const citySets = pgTable(
 
     // GEO DATA
     country: text("country").notNull(),
-    countryCode: text("country_code"),
+    countryCode: text("country_code").notNull(),
     city: text("city").notNull(),
 
     // COVER PHOTO
@@ -91,7 +91,7 @@ export const citySets = pgTable(
       .references(() => photos.id)
       .notNull(),
 
-    photoCount: integer("photo_count").default(0),
+    photoCount: integer("photo_count").default(0).notNull(),
 
     // META DATA
     ...timestamps,
