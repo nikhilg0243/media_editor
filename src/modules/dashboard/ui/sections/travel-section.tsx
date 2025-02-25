@@ -37,7 +37,7 @@ const TravelSectionSuspense = () => {
   });
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 w-full h-[500px] border">
+    <div className="grid grid-cols-1 md:grid-cols-2 w-full border">
       <MapProvider>
         <TravelPhotos data={data.items} />
         <TravelMap data={data.items} />

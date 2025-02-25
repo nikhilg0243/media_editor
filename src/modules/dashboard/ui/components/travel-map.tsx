@@ -50,7 +50,7 @@ export const TravelMap = ({ data }: TravelMapProps) => {
       })) || [];
 
   return (
-    <div className="size-full relative overflow-hidden">
+    <div className="size-full relative overflow-hidden min-h-[300px]">
       <Mapbox
         id="city"
         markers={markers}
