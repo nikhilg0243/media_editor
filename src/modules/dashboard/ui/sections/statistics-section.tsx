@@ -24,13 +24,13 @@ export const StatisticsSection = () => {
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
       <StatisticsCard
-        title="Photos"
+        title="Total photos"
         value={summary.data?.photoCount || 0}
         direction={direction}
         percentage={growthPercentage}
       />
       <StatisticsCard
-        title="Travel Cities"
+        title="Total travel cities"
         value={summary.data?.cityCount || 0}
       />
       <StatisticsCard title="Followers" value={500} />
