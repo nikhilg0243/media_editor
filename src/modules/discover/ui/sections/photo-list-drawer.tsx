@@ -4,11 +4,12 @@ import BlurImage from "@/components/blur-image";
 import { Photo } from "@/db/schema/photos";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useMap } from "react-map-gl";
 import type { RenderImageContext, RenderImageProps } from "react-photo-album";
 import PhotoAlbum from "react-photo-album";
 import "react-photo-album/styles.css";
+import { motion } from "motion/react";
 
 interface CustomPhotoType {
   src: string;
@@ -36,74 +37,130 @@ export const PhotoListDrawer = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const photoAlbumPhotos = useMemo(() => {
-    return (
-      photos?.map((photo) => ({
-        src: photo.url,
-        width: photo.width || 800,
-        height: photo.height || 600,
-        alt: photo.title,
-        key: photo.id,
-        customData: {
-          blurHash: photo.blurData,
-          latitude: photo.latitude,
-          longitude: photo.longitude,
-        },
-      })) || []
-    );
+    if (!photos) return [];
+    return photos.map((photo) => ({
+      src: photo.url,
+      width: photo.width || 800,
+      height: photo.height || 600,
+      alt: photo.title,
+      key: photo.id,
+      customData: {
+        blurHash: photo.blurData,
+        latitude: photo.latitude,
+        longitude: photo.longitude,
+      },
+    }));
   }, [photos]);
 
-  const renderNextImage = (
-    { sizes }: RenderImageProps,
-    { photo, width, height }: RenderImageContext
-  ) => {
-    const customPhoto = photo as unknown as CustomPhotoType;
+  const PhotoItem = ({
+    photo,
+    sizes,
+    width,
+    height,
+    onClick,
+  }: {
+    photo: CustomPhotoType;
+    sizes?: string;
+    width: number;
+    height: number;
+    onClick: () => void;
+  }) => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
 
     return (
-      <div
-        className="relative bg-background/60 group cursor-pointer"
-        onClick={() =>
-          handleClick({
-            latitude: customPhoto.customData.latitude,
-            longitude: customPhoto.customData.longitude,
-          })
-        }
+      <motion.div
+        className="relative bg-background/60 group cursor-pointer overflow-hidden"
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+        onClick={onClick}
         style={{
           width: "100%",
           position: "relative",
           aspectRatio: `${width} / ${height}`,
         }}
       >
-        <BlurImage
-          fill
-          src={customPhoto.src}
-          alt={customPhoto.alt}
-          sizes={sizes}
-          blurhash={customPhoto.customData.blurHash}
-          quality={75}
-          priority
-        />
-      </div>
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-background/20">
+            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+          </div>
+        )}
+        {hasError ? (
+          <div className="absolute inset-0 flex items-center justify-center bg-background/20">
+            <p className="text-sm text-muted-foreground">
+              Failed to load image
+            </p>
+          </div>
+        ) : (
+          <BlurImage
+            fill
+            src={photo.src}
+            alt={photo.alt}
+            sizes={sizes || "100vw"}
+            blurhash={photo.customData.blurHash}
+            quality={50}
+            priority
+            onError={() => {
+              setHasError(true);
+              setIsLoading(false);
+            }}
+            className="transition-transform group-hover:scale-105"
+          />
+        )}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 bg-background/60 backdrop-blur-sm p-2 translate-y-full"
+          initial={{ y: "100%" }}
+          animate={{ y: "100%" }}
+          whileHover={{ y: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        >
+          <p className="text-sm truncate">{photo.alt}</p>
+        </motion.div>
+      </motion.div>
     );
   };
 
-  const handleClick = ({
-    latitude,
-    longitude,
-  }: {
-    latitude: number;
-    longitude: number;
-  }) => {
-    discoverMap?.flyTo({
-      center: [longitude, latitude],
-      zoom: 16,
-    });
+  const renderNextImage = (
+    { sizes }: RenderImageProps,
+    { photo, width, height }: RenderImageContext
+  ) => {
+    const customPhoto = photo as unknown as CustomPhotoType;
+    return (
+      <PhotoItem
+        photo={customPhoto}
+        sizes={sizes}
+        width={width}
+        height={height}
+        onClick={() =>
+          handleClick({
+            latitude: customPhoto.customData.latitude,
+            longitude: customPhoto.customData.longitude,
+          })
+        }
+      />
+    );
   };
 
+  const handleClick = useCallback(
+    ({ latitude, longitude }: { latitude: number; longitude: number }) => {
+      discoverMap?.flyTo({
+        center: [longitude, latitude],
+        zoom: 12,
+        duration: 3000,
+      });
+    },
+    [discoverMap]
+  );
+
   return (
-    <div
+    <motion.div
+      initial={false}
+      animate={{
+        x: isOpen ? 0 : "calc(100% - 2.5rem)",
+      }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={cn(
-        "fixed -right-10 top-20 h-[calc(100vh-5rem)] transition-transform duration-300 z-50",
-        isOpen ? "translate-x-0" : "translate-x-[calc(100%-2.5rem)]",
+        "fixed -right-10 top-20 h-[calc(100vh-5rem)] z-50",
         className
       )}
     >
@@ -124,7 +181,12 @@ export const PhotoListDrawer = ({
       </div>
 
       {/* Main Content */}
-      <div className="h-full w-[400px] bg-background/80 backdrop-blur-sm border-l border-border shadow-lg overflow-hidden">
+      <motion.div
+        className="h-full w-[400px] bg-background/80 backdrop-blur-sm border-l border-border shadow-lg overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+      >
         <div className="h-full w-full overflow-y-auto pr-4">
           <div className="space-y-4 p-4">
             <h2 className="text-xl font-semibold">Photos</h2>
@@ -138,7 +200,7 @@ export const PhotoListDrawer = ({
             />
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
