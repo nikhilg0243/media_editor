@@ -31,7 +31,7 @@ export function PhotosByYearLineChart({ data }: LineChartProps) {
   const chartConfig = {
     photos: {
       label: "Photos",
-      color: "hsl(var(--chart-1))",
+      color: "hsl(var(--chart-2))",
     },
   } satisfies ChartConfig;
 

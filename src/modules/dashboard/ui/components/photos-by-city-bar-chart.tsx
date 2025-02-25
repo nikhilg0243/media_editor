@@ -60,7 +60,7 @@ export function PhotosByCityBarChart({ data }: PhotosByCityBarChartProps) {
     <Card className="rounded-none shadow-none">
       <CardHeader>
         <CardTitle>Top Cities by Photos</CardTitle>
-        <CardDescription>Top 5 cities with most photos</CardDescription>
+        <CardDescription>Top 10 cities with most photos</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
