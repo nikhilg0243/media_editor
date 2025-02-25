@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
+import { MapProvider } from "react-map-gl";
 import { ErrorBoundary } from "react-error-boundary";
 import { TravelMap } from "../components/travel-map";
 import { TravelPhotos } from "../components/travel-photos";
@@ -31,12 +32,16 @@ export const TravelSectionSkeleton = () => {
 };
 
 const TravelSectionSuspense = () => {
-  const [data] = trpc.travel.getLatestTravel.useSuspenseQuery();
+  const [data] = trpc.travel.getCitySets.useSuspenseQuery({
+    limit: 4,
+  });
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 w-full h-[500px] border">
-      <TravelPhotos data={data} />
-      <TravelMap data={data} />
+      <MapProvider>
+        <TravelPhotos data={data.items} />
+        <TravelMap data={data.items} />
+      </MapProvider>
     </div>
   );
 };

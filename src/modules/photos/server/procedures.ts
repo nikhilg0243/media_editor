@@ -33,7 +33,7 @@ export const photosRouter = createTRPCRouter({
             ? values.region
             : values.city;
 
-        if (insertedPhoto.country && cityName) {
+        if (insertedPhoto.country && cityName && insertedPhoto.countryCode) {
           await db
             .insert(citySets)
             .values({

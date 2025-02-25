@@ -1,27 +1,26 @@
+import BlurImage from "@/components/blur-image";
 import Mapbox, { MapboxProps } from "@/components/map";
-import { Photo } from "@/db/schema/photos";
-import { Blurhash } from "react-blurhash";
+import { CitySetWithPhotos } from "@/db/schema/photos";
 
 interface TravelMapProps {
-  data: {
-    coverPhoto: Photo;
-    photos: Photo[];
-  };
+  data: CitySetWithPhotos[];
 }
 
 export const TravelMap = ({ data }: TravelMapProps) => {
   const initialMarker = {
-    longitude: data.coverPhoto.longitude ?? -122.4,
-    latitude: data.coverPhoto.latitude ?? 37.74,
+    longitude: data[0].coverPhoto.longitude ?? -122.4,
+    latitude: data[0].coverPhoto.latitude ?? 37.74,
   };
 
   const markers: MapboxProps["markers"] =
-    data.photos
-      .filter(
-        (
-          photo
-        ): photo is typeof photo & { longitude: number; latitude: number } =>
-          photo.longitude !== null && photo.latitude !== null
+    data
+      .flatMap((citySet) =>
+        citySet.photos.filter(
+          (
+            photo
+          ): photo is typeof photo & { longitude: number; latitude: number } =>
+            photo.longitude !== null && photo.latitude !== null
+        )
       )
       .map((photo) => ({
         id: photo.id,
@@ -34,16 +33,15 @@ export const TravelMap = ({ data }: TravelMapProps) => {
                 className="w-full h-full"
                 style={{ transform: "scale(1.2)" }}
               >
-                <Blurhash
-                  hash={photo.blurData}
-                  width={12}
-                  height={12}
-                  punch={1}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "block",
-                  }}
+                <BlurImage
+                  src={photo.url}
+                  alt={photo.title}
+                  fill
+                  priority
+                  quality={5}
+                  blurhash={photo.blurData}
+                  sizes="75vw"
+                  className="object-cover"
                 />
               </div>
             </div>
@@ -54,6 +52,7 @@ export const TravelMap = ({ data }: TravelMapProps) => {
   return (
     <div className="size-full relative overflow-hidden">
       <Mapbox
+        id="city"
         markers={markers}
         initialViewState={{
           ...initialMarker,
