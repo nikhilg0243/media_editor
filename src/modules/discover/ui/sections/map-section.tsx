@@ -8,6 +8,8 @@ import { trpc } from "@/trpc/client";
 import BlurImage from "@/components/blur-image";
 import { Blurhash } from "react-blurhash";
 import { useRouter } from "next/navigation";
+import { PhotoListDrawer } from "./photo-list-drawer";
+import { MapProvider } from "react-map-gl";
 
 export const MapSection = () => {
   return (
@@ -85,14 +87,19 @@ const MapSectionSuspense = () => {
       })) || [];
 
   return (
-    <Mapbox
-      id="discoverMap"
-      initialViewState={{
-        longitude: 121.2816980216146,
-        latitude: 31.31395498607465,
-        zoom: 3,
-      }}
-      markers={markers}
-    />
+    <MapProvider>
+      <div className="relative size-full">
+        <Mapbox
+          id="discoverMap"
+          initialViewState={{
+            longitude: 121.2816980216146,
+            latitude: 31.31395498607465,
+            zoom: 3,
+          }}
+          markers={markers}
+        />
+        <PhotoListDrawer photos={data} />
+      </div>
+    </MapProvider>
   );
 };
