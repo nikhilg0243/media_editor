@@ -69,7 +69,7 @@ export function PhotosByCityBarChart({ data }: PhotosByCityBarChartProps) {
             data={chartData}
             layout="vertical"
             margin={{
-              left: -25,
+              left: -15,
               right: 20,
               top: 0,
               bottom: 0,
@@ -95,7 +95,7 @@ export function PhotosByCityBarChart({ data }: PhotosByCityBarChartProps) {
                       dy={-4}
                       textAnchor="end"
                       fill="currentColor"
-                      className="text-sm font-medium truncate"
+                      className="text-xs font-medium truncate"
                       style={{ maxWidth: "100px" }}
                     >
                       {cityName}
