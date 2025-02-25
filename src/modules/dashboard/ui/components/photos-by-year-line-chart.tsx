@@ -36,7 +36,7 @@ export function PhotosByYearLineChart({ data }: LineChartProps) {
   } satisfies ChartConfig;
 
   return (
-    <Card className="rounded-none">
+    <Card className="rounded-none shadow-none">
       <CardHeader>
         <CardTitle>Photos by Year</CardTitle>
         <CardDescription>Last 5 years statistics</CardDescription>
