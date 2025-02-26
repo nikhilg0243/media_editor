@@ -31,7 +31,7 @@ export const summaryRouter = createTRPCRouter({
       })
       .from(citySets)
       .orderBy(sql`${citySets.photoCount} DESC`)
-      .limit(10);
+      .limit(5);
 
     const yearCounts: Record<number, number> = {};
     for (let year = currentYear; year >= startYear; year--) {
