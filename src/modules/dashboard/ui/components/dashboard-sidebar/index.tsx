@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import {
+  Book,
   ImageIcon,
   LayoutDashboard,
   LogOutIcon,
@@ -52,6 +53,19 @@ export const DashboardSidebar = () => {
                   <Link href="/photos" className="flex items-center gap-4">
                     <ImageIcon className="size-4" />
                     <span className="text-sm">Photos</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  tooltip="Posts"
+                  isActive={pathname.startsWith("/posts")}
+                  asChild
+                >
+                  <Link href="/posts" className="flex items-center gap-4">
+                    <Book className="size-4" />
+                    <span className="text-sm">Posts</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

@@ -1,3 +1,4 @@
+import { InferSelectModel } from "drizzle-orm";
 import {
   timestamp,
   pgTable,
@@ -48,6 +49,9 @@ export const posts = pgTable(
     index("slug_idx").on(t.slug),
   ]
 );
+
+// Types
+export type Post = InferSelectModel<typeof posts>;
 
 // Schema
 export const postsInsertSchema = createInsertSchema(posts);
