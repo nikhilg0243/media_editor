@@ -31,7 +31,7 @@ const LoadingSkeleton = () => (
     <div className="flex flex-col items-center justify-center h-screen gap-6 sm:gap-8 md:gap-10 px-3 sm:px-4">
       <div className="w-full text-center space-y-1 sm:space-y-2 animate-pulse">
         <div className="h-6 sm:h-7 md:h-8 lg:h-10 bg-gray-800 rounded-md w-full sm:w-4/5 md:w-3/4 mx-auto max-w-3xl"></div>
-        <div className="h-3 sm:h-4 md:h-5 bg-gray-800/70 rounded-md w-4/5 sm:w-3/5 md:w-1/2 mx-auto max-w-xl mt-2"></div>
+        <div className="h-3 sm:h-4 md:h-5 bg-gray-800/40 rounded-md w-4/5 sm:w-3/5 md:w-1/2 mx-auto max-w-xl mt-2"></div>
       </div>
       <div className="p-4 pb-0 bg-white/95 relative w-[90%] sm:w-[85%] md:w-[80%] h-[50vh] sm:h-[55vh] md:h-[60vh] animate-pulse shadow-2xl">
         <div className="w-full h-full bg-gray-200"></div>
@@ -227,7 +227,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
           {/* Apple-style Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {/* Hero Image - 2 columns + 2 rows */}
-            <div className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden bg-gray-800 relative group h-[560px]">
+            <div className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden bg-white/10 backdrop-blur-md relative group h-[560px]">
               <div className="w-full h-full overflow-hidden">
                 <BlurImage
                   src={data.url}
@@ -246,7 +246,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
             </div>
 
             {/* Camera Specs */}
-            <div className="rounded-3xl overflow-hidden bg-gray-800 p-6 flex flex-col justify-between">
+            <div className="rounded-3xl overflow-hidden bg-white/10 backdrop-blur-md p-6 flex flex-col justify-between">
               <h3 className="text-2xl font-bold mb-1">{data.make}</h3>
               <div>
                 <p className="text-gray-300 text-sm">Camera</p>
@@ -255,7 +255,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
             </div>
 
             {/* Lens Specs */}
-            <div className="rounded-3xl overflow-hidden bg-gray-800 p-6 flex flex-col justify-between">
+            <div className="rounded-3xl overflow-hidden bg-white/10 backdrop-blur-md p-6 flex flex-col justify-between">
               <div className="text-2xl font-bold mb-1">Lens</div>
               <div>
                 <p className="text-gray-300 text-sm">Premium Glass</p>
@@ -266,7 +266,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
             </div>
 
             {/* Aperture */}
-            <div className="rounded-3xl overflow-hidden bg-gray-800 p-6 flex flex-col justify-between group relative">
+            <div className="rounded-3xl overflow-hidden bg-white/10 backdrop-blur-md p-6 flex flex-col justify-between group relative">
               <Aperture className="absolute right-6 top-6 w-12 h-12 text-gray-600 group-hover:text-white transition-colors duration-300" />
               <div className="text-2xl font-bold mb-1">ƒ/{data.fNumber}</div>
               <div>
@@ -276,7 +276,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
             </div>
 
             {/* Exposure */}
-            <div className="rounded-3xl overflow-hidden bg-gray-800 p-6 flex flex-col justify-between group relative">
+            <div className="rounded-3xl overflow-hidden bg-white/10 backdrop-blur-md p-6 flex flex-col justify-between group relative">
               <Clock className="absolute right-6 top-6 w-12 h-12 text-gray-600 group-hover:text-white transition-colors duration-300" />
               <div className="text-2xl font-bold mb-1">
                 {data.exposureTime && formatExposureTime(data.exposureTime)}
@@ -290,7 +290,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
             {/* Left side 2x2 grid */}
             <div className="md:col-span-2 grid grid-cols-2 gap-4">
               {/* ISO - Top Left */}
-              <div className="rounded-3xl overflow-hidden bg-gray-800 p-6 flex flex-col justify-between">
+              <div className="rounded-3xl overflow-hidden bg-white/10 backdrop-blur-md p-6 flex flex-col justify-between">
                 <div className="text-2xl font-bold mb-1">ISO {data.iso}</div>
                 <div>
                   <p className="text-gray-300 text-sm">Sensitivity</p>
@@ -301,7 +301,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
               </div>
 
               {/* Focal Length - Top Right */}
-              <div className="rounded-3xl overflow-hidden bg-gray-800 p-6 flex flex-col justify-between">
+              <div className="rounded-3xl overflow-hidden bg-white/10 backdrop-blur-md p-6 flex flex-col justify-between">
                 <div className="text-2xl font-bold mb-1">
                   {data.focalLength35mm}mm
                 </div>
@@ -318,7 +318,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
               </div>
 
               {/* Date/Time - Bottom Left */}
-              <div className="rounded-3xl overflow-hidden bg-gray-800 p-6 flex flex-col justify-between">
+              <div className="rounded-3xl overflow-hidden bg-white/10 backdrop-blur-md p-6 flex flex-col justify-between">
                 <div className="text-xl font-bold mb-1">
                   {data.dateTimeOriginal &&
                     new Date(data.dateTimeOriginal).toLocaleDateString(
@@ -337,7 +337,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
               </div>
 
               {/* Resolution - Bottom Right */}
-              <div className="rounded-3xl overflow-hidden bg-gray-800 p-6 flex flex-col justify-between group relative">
+              <div className="rounded-3xl overflow-hidden bg-white/10 backdrop-blur-md p-6 flex flex-col justify-between group relative">
                 <ImageIcon className="absolute right-6 top-6 w-12 h-12 text-gray-600 group-hover:text-white transition-colors duration-300" />
                 <div className="text-2xl font-bold mb-1">
                   {data.width} × {data.height}
