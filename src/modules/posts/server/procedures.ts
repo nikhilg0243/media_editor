@@ -1,4 +1,8 @@
-import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
+import {
+  baseProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+} from "@/trpc/init";
 import { posts, postsInsertSchema } from "@/db/schema/posts";
 import { db } from "@/db/drizzle";
 import { z } from "zod";
@@ -14,7 +18,7 @@ export const postsRouter = createTRPCRouter({
 
       return newPost;
     }),
-  getMany: protectedProcedure
+  getMany: baseProcedure
     .input(
       z.object({
         cursor: z

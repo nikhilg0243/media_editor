@@ -3,20 +3,35 @@
 // External dependencies
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
 // UI Components
 import { Badge } from "@/components/ui/badge";
+import { trpc } from "@/trpc/client";
 
-// Hooks
+export const LatestPostSection = () => {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <ErrorBoundary fallback={<p>Something went wrong</p>}>
+        <LatestPostSectionSuspense />
+      </ErrorBoundary>
+    </Suspense>
+  );
+};
 
-const LargePostCard = () => {
+const LatestPostSectionSuspense = () => {
+  const [data] = trpc.posts.getMany.useSuspenseQuery({
+    limit: 1,
+  });
+
   return (
     <Link
-      href={`/blog/`}
+      href={`/blog/${data.items[0].slug}`}
       className="block w-full h-full relative rounded-xl overflow-hidden group cursor-pointer"
     >
       <Image
-        src="/placeholder.svg"
+        src={data.items[0].coverImage || "/placeholder.svg"}
         alt="Image"
         fill
         unoptimized
@@ -30,7 +45,7 @@ const LargePostCard = () => {
             <Badge>
               <span className="text-xs font-light">New</span>
             </Badge>
-            <h2 className="font-light">Title</h2>
+            <h2 className="font-light">{data.items[0].title}</h2>
           </div>
 
           <div className="relative mr-2">
@@ -42,5 +57,3 @@ const LargePostCard = () => {
     </Link>
   );
 };
-
-export default LargePostCard;
