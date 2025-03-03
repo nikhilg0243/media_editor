@@ -9,7 +9,7 @@ import { client } from "@/modules/auth/lib/auth-client";
 // Internal dependencies - UI Components
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Dot, Laptop, Loader2 } from "lucide-react";
+import { Dot, Laptop, Loader2, Smartphone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 // Types
@@ -41,7 +41,6 @@ const SecurityAccessCard = (props: {
               const isCurrentSession = session.id === props.session?.session.id;
               const deviceType = userAgent.getDevice().type;
               const isMobile = deviceType === "mobile";
-              const locationInfo = "Bucharest, RO";
 
               return (
                 <Card
@@ -51,10 +50,17 @@ const SecurityAccessCard = (props: {
                   <CardContent className="p-4">
                     <div className="flex items-start gap-4">
                       <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-md flex items-center justify-center">
-                        <Laptop
-                          size={24}
-                          className="text-gray-700 dark:text-gray-300"
-                        />
+                        {isMobile ? (
+                          <Smartphone
+                            size={24}
+                            className="text-gray-700 dark:text-gray-300"
+                          />
+                        ) : (
+                          <Laptop
+                            size={24}
+                            className="text-gray-700 dark:text-gray-300"
+                          />
+                        )}
                       </div>
 
                       <div className="flex-1 space-y-1">
@@ -69,14 +75,6 @@ const SecurityAccessCard = (props: {
                             </span>
                           )}
                         </div>
-
-                        <p className="text-xs text-muted-foreground">
-                          {locationInfo}{" "}
-                          {!isCurrentSession &&
-                            `• Last seen ${Math.floor(Math.random() * 2) + 1} ${
-                              Math.random() > 0.5 ? "week" : "weeks"
-                            } ago`}
-                        </p>
                       </div>
 
                       <Button
