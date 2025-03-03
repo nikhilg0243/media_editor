@@ -1,10 +1,10 @@
-import UserCard from "@/modules/auth/components/user-card";
+import SecurityAccessCard from "@/modules/auth/components/security-access-card";
 import { auth } from "@/modules/auth/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "Profile",
+  title: "Security & Access",
 };
 
 const ProfilePage = async () => {
@@ -22,11 +22,11 @@ const ProfilePage = async () => {
   return (
     <div className="flex flex-col gap-y-6 pt-2.5">
       <div className="px-4">
-        <h1 className="text-2xl font-bold">Security & access</h1>
+        <h1 className="text-2xl font-bold">Access & Security</h1>
         <p className="text-xs text-muted-foreground">
-          Manage the devices logged in your account
+          Manage the devices logged in your account & Profile information
         </p>
-        <UserCard
+        <SecurityAccessCard
           session={JSON.parse(JSON.stringify(session))}
           activeSessions={JSON.parse(JSON.stringify(activeSessions))}
         />

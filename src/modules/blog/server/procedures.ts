@@ -1,20 +1,11 @@
-import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
-import { posts, postsInsertSchema } from "@/db/schema/posts";
+import { baseProcedure, createTRPCRouter } from "@/trpc/init";
+import { posts } from "@/db/schema/posts";
 import { db } from "@/db/drizzle";
 import { z } from "zod";
 import { and, eq, lt, or, desc } from "drizzle-orm";
 
-export const postsRouter = createTRPCRouter({
-  create: protectedProcedure
-    .input(postsInsertSchema)
-    .mutation(async ({ input }) => {
-      const values = input;
-
-      const [newPost] = await db.insert(posts).values(values).returning();
-
-      return newPost;
-    }),
-  getMany: protectedProcedure
+export const blogRouter = createTRPCRouter({
+  getMany: baseProcedure
     .input(
       z.object({
         cursor: z
@@ -34,6 +25,7 @@ export const postsRouter = createTRPCRouter({
         .from(posts)
         .where(
           and(
+            eq(posts.visibility, "public"),
             cursor
               ? or(
                   lt(posts.updatedAt, cursor.updatedAt),
@@ -62,4 +54,15 @@ export const postsRouter = createTRPCRouter({
 
       return { items, nextCursor };
     }),
+
+  getLatest: baseProcedure.query(async () => {
+    const [data] = await db
+      .select()
+      .from(posts)
+      .where(eq(posts.visibility, "public"))
+      .orderBy(desc(posts.updatedAt))
+      .limit(1);
+
+    return data;
+  }),
 });

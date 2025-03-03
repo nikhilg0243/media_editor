@@ -22,7 +22,7 @@ export const PostsSection = () => {
 };
 
 const PostsSectionSuspense = () => {
-  const [data, query] = trpc.posts.getMany.useSuspenseInfiniteQuery(
+  const [data, query] = trpc.blog.getMany.useSuspenseInfiniteQuery(
     {
       limit: 10,
     },

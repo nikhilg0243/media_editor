@@ -1,5 +1,6 @@
 import { db } from "@/db/drizzle";
 import { citySets, photos } from "@/db/schema/photos";
+import { posts } from "@/db/schema/posts";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import { sql } from "drizzle-orm";
 
@@ -7,6 +8,7 @@ export const summaryRouter = createTRPCRouter({
   getSummary: protectedProcedure.query(async () => {
     const photosData = await db.select().from(photos);
     const citySetsData = await db.select().from(citySets);
+    const postsData = await db.select().from(posts);
 
     const currentYear = new Date().getFullYear();
     const startYear = currentYear - 4;
@@ -50,6 +52,7 @@ export const summaryRouter = createTRPCRouter({
         cityCount: citySetsData.length,
         yearlyStats: yearCounts,
         topCities,
+        postCount: postsData.length,
       },
     };
   }),

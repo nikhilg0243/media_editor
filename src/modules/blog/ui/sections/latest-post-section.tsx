@@ -21,17 +21,17 @@ export const LatestPostSection = () => {
 };
 
 const LatestPostSectionSuspense = () => {
-  const [data] = trpc.posts.getMany.useSuspenseQuery({
-    limit: 1,
-  });
+  const [data] = trpc.blog.getLatest.useSuspenseQuery();
+
+  if (!data) return null;
 
   return (
     <Link
-      href={`/blog/${data.items[0].slug}`}
+      href={`/blog/${data.slug}`}
       className="block w-full h-full relative rounded-xl overflow-hidden group cursor-pointer"
     >
       <Image
-        src={data.items[0].coverImage || "/placeholder.svg"}
+        src={data.coverImage || "/placeholder.svg"}
         alt="Image"
         fill
         unoptimized
@@ -45,7 +45,7 @@ const LatestPostSectionSuspense = () => {
             <Badge>
               <span className="text-xs font-light">New</span>
             </Badge>
-            <h2 className="font-light">{data.items[0].title}</h2>
+            <h2 className="font-light">{data.title}</h2>
           </div>
 
           <div className="relative mr-2">

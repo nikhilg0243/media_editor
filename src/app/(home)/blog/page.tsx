@@ -10,9 +10,10 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 const BlogPage = () => {
-  void trpc.posts.getMany.prefetchInfinite({
+  void trpc.blog.getMany.prefetchInfinite({
     limit: 10,
   });
+  void trpc.blog.getLatest.prefetch();
 
   return (
     <HydrateClient>

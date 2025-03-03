@@ -33,7 +33,10 @@ export const StatisticsSection = () => {
         title="Total travel cities"
         value={summary.data?.cityCount || 0}
       />
-      <StatisticsCard title="Followers" value={500} />
+      <StatisticsCard
+        title="Total posts"
+        value={summary.data?.postCount || 0}
+      />
       <StatisticsCard title="Likes" value={1000} />
     </div>
   );
