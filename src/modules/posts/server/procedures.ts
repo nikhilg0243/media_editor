@@ -1,8 +1,9 @@
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
-import { posts, postsInsertSchema } from "@/db/schema/posts";
+import { posts, postsInsertSchema, postsUpdateSchema } from "@/db/schema/posts";
 import { db } from "@/db/drizzle";
 import { z } from "zod";
 import { and, eq, lt, or, desc } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 
 export const postsRouter = createTRPCRouter({
   create: protectedProcedure
@@ -13,6 +14,70 @@ export const postsRouter = createTRPCRouter({
       const [newPost] = await db.insert(posts).values(values).returning();
 
       return newPost;
+    }),
+  update: protectedProcedure
+    .input(postsUpdateSchema)
+    .mutation(async ({ input }) => {
+      const { id } = input;
+
+      if (!id) {
+        throw new TRPCError({ code: "BAD_REQUEST" });
+      }
+
+      const [updatedPost] = await db
+        .update(posts)
+        .set({
+          ...input,
+        })
+        .where(eq(posts.id, id))
+        .returning();
+
+      if (!updatedPost) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+
+      return updatedPost;
+    }),
+  remove: protectedProcedure
+    .input(
+      z.object({
+        id: z.string().uuid(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { id } = input;
+
+      if (!id) {
+        throw new TRPCError({ code: "BAD_REQUEST" });
+      }
+
+      const [deletedPost] = await db
+        .delete(posts)
+        .where(eq(posts.id, id))
+        .returning();
+
+      if (!deletedPost) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+
+      return deletedPost;
+    }),
+  getOne: protectedProcedure
+    .input(
+      z.object({
+        postId: z.string().uuid(),
+      })
+    )
+    .query(async ({ input }) => {
+      const { postId } = input;
+
+      const [post] = await db
+        .select()
+        .from(posts)
+        .where(eq(posts.id, postId))
+        .limit(1);
+
+      return post;
     }),
   getMany: protectedProcedure
     .input(
