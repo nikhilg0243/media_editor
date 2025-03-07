@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme/theme-provider";
@@ -36,6 +37,7 @@ export default async function RootLayout({
           <TailwindIndicator />
           <ScrollToTop />
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
