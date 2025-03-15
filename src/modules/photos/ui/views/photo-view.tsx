@@ -5,11 +5,7 @@ interface PhotoViewProps {
 }
 
 const PhotoView = ({ photoId }: PhotoViewProps) => {
-  return (
-    <div className="py-2.5 px-4">
-      <FormSection photoId={photoId} />
-    </div>
-  );
+  return <FormSection photoId={photoId} />;
 };
 
 export default PhotoView;

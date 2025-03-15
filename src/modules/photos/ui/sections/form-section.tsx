@@ -164,7 +164,7 @@ const FormSectionSuspense = ({ photoId }: FormSectionProps) => {
   };
 
   return (
-    <>
+    <div className="py-2.5 px-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex items-center justify-between mb-6">
@@ -263,6 +263,31 @@ const FormSectionSuspense = ({ photoId }: FormSectionProps) => {
                 )}
               />
 
+              <FormField
+                control={form.control}
+                name="visibility"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Visibility</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value ?? undefined}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select visibility" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="public">Public</SelectItem>
+                        <SelectItem value="private">Private</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               {/* Map */}
               <FormItem>
                 <FormLabel>Location</FormLabel>
@@ -316,6 +341,7 @@ const FormSectionSuspense = ({ photoId }: FormSectionProps) => {
                     blurhash={photo.blurData}
                   />
                 </div>
+
                 <div className="p-4 flex flex-col gap-y-6">
                   <div className="flex justify-between items-center gap-x-2">
                     <div className="flex flex-col gap-y-1">
@@ -343,35 +369,10 @@ const FormSectionSuspense = ({ photoId }: FormSectionProps) => {
                   </div>
                 </div>
               </div>
-
-              <FormField
-                control={form.control}
-                name="visibility"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Visibility</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value ?? undefined}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select visibility" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="public">Public</SelectItem>
-                        <SelectItem value="private">Private</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </div>
           </div>
         </form>
       </Form>
-    </>
+    </div>
   );
 };
