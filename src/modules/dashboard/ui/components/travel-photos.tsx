@@ -52,7 +52,7 @@ export const TravelPhotos = ({ data }: TravelPhotosProps) => {
             </div>
           </div>
 
-          <div className="relative h-16 aspect-[4/3] overflow-hidden">
+          <div className="relative h-16 aspect-4/3 overflow-hidden">
             <BlurImage
               src={citySet.coverPhoto.url || "/placeholder.svg"}
               alt={citySet.city}

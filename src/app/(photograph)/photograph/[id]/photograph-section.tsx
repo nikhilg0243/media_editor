@@ -82,7 +82,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
             alt={data.title}
             fill
             blurhash={data.blurData}
-            className="object-cover blur"
+            className="object-cover blur-sm"
             priority
           />
         </div>
@@ -208,7 +208,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
             alt={data.title}
             fill
             blurhash={data.blurData}
-            className="object-cover blur"
+            className="object-cover blur-sm"
             priority
           />
         </div>

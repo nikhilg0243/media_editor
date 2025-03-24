@@ -30,8 +30,6 @@ const TravelSectionSuspense = () => {
     limit: 99,
   });
 
-  console.log(data.items[0]);
-
   useEffect(() => {
     if (!activeCity && data && data.items.length > 0) {
       setActiveCity(data.items[0]);

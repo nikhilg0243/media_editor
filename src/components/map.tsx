@@ -181,7 +181,7 @@ const Mapbox = ({
           latitude={popupInfo.latitude}
           anchor="bottom"
           offset={15}
-          className="!p-0 !rounded-xl overflow-hidden max-w-none"
+          className="p-0! rounded-xl! overflow-hidden max-w-none"
           closeButton={false}
           closeOnClick={false}
           onClose={() => setPopupInfo(null)}

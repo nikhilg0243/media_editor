@@ -36,11 +36,11 @@ const LatestPostSectionSuspense = () => {
         fill
         unoptimized
         priority
-        className="object-cover group-hover:blur-sm transition-[filter] duration-300 ease-out"
+        className="object-cover group-hover:blur-xs transition-[filter] duration-300 ease-out"
       />
 
       <div className="absolute w-full bottom-0 p-3">
-        <div className="bg-background backdrop-blur-sm p-3 rounded-lg flex items-center justify-between">
+        <div className="bg-background backdrop-blur-xs p-3 rounded-lg flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Badge>
               <span className="text-xs font-light">New</span>

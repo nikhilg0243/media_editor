@@ -60,7 +60,7 @@ const Carousel = ({
       {/* Navigation Buttons */}
       <div className="hidden lg:flex absolute inset-y-0 left-0 right-0 items-center justify-between px-8 pointer-events-none">
         <button
-          className="w-10 h-10 bg-black/15 backdrop-blur flex items-center justify-center pointer-events-auto text-white rounded-md"
+          className="w-10 h-10 bg-black/15 backdrop-blur-sm flex items-center justify-center pointer-events-auto text-white rounded-md"
           onClick={() => emblaApi?.scrollPrev()}
         >
           <svg
@@ -78,7 +78,7 @@ const Carousel = ({
           </svg>
         </button>
         <button
-          className="w-10 h-10 bg-black/15 backdrop-blur flex items-center justify-center pointer-events-auto text-white rounded-md"
+          className="w-10 h-10 bg-black/15 backdrop-blur-sm flex items-center justify-center pointer-events-auto text-white rounded-md"
           onClick={() => emblaApi?.scrollNext()}
         >
           <svg
@@ -98,7 +98,7 @@ const Carousel = ({
       </div>
 
       {/* Dots */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-black/15 backdrop-blur px-3 py-1 rounded-full">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-black/15 backdrop-blur-sm px-3 py-1 rounded-full">
         {scrollSnaps.map((_, index) => (
           <button
             key={index}

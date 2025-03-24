@@ -72,7 +72,7 @@ const TiptapEditor = ({ content, onChange }: TiptapEditorProps) => {
     content: content || '<p>Start writing your post content here...</p>',
     editorProps: {
       attributes: {
-        class: 'min-h-[200px] p-4 focus:outline-none border border-border rounded-md',
+        class: 'min-h-[200px] p-4 focus:outline-hidden border border-border rounded-md',
       },
     },
     onUpdate: ({ editor }) => {

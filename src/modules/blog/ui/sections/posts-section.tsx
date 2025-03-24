@@ -46,11 +46,11 @@ const PostsSectionSuspense = () => {
                 fill
                 unoptimized
                 priority
-                className="object-cover group-hover:blur-sm transition-[filter] duration-300 ease-out"
+                className="object-cover group-hover:blur-xs transition-[filter] duration-300 ease-out"
               />
 
               <div className="absolute w-full bottom-0 p-3">
-                <div className="bg-background backdrop-blur-sm p-4 rounded-lg flex items-center justify-between gap-8">
+                <div className="bg-background backdrop-blur-xs p-4 rounded-lg flex items-center justify-between gap-8">
                   <h2 className="font-light line-clamp-2">{item.title}</h2>
 
                   <div className="relative mr-2">

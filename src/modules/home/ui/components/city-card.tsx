@@ -30,7 +30,7 @@ const CityCard = ({ title, coverPhoto }: Props) => {
           quality={20}
           priority
           sizes="75vw"
-          className="object-cover lg:group-hover:blur-sm lg:transition-[filter] lg:duration-300 lg:ease-out"
+          className="object-cover lg:group-hover:blur-xs lg:transition-[filter] lg:duration-300 lg:ease-out"
           blurhash={coverPhoto?.blurData || ""}
         />
       </AspectRatio>

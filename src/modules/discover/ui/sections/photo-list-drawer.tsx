@@ -109,7 +109,7 @@ export const PhotoListDrawer = ({
           />
         )}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 bg-background/60 backdrop-blur-sm p-2 translate-y-full"
+          className="absolute bottom-0 left-0 right-0 bg-background/60 backdrop-blur-xs p-2 translate-y-full"
           initial={{ y: "100%" }}
           animate={{ y: "100%" }}
           whileHover={{ y: 0 }}
@@ -198,7 +198,7 @@ export const PhotoListDrawer = ({
 
       {/* Main Content */}
       <motion.div
-        className="h-full w-[90vw] sm:w-[50vw] bg-background/80 backdrop-blur-sm border-l border-border shadow-lg overflow-hidden"
+        className="h-full w-[90vw] sm:w-[50vw] bg-background/80 backdrop-blur-xs border-l border-border shadow-lg overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}

@@ -18,7 +18,7 @@ const VectorTopLeftAnimation = ({ title }: Props) => {
             overflow-hidden
           "
           >
-            <PiArrowRight size={14} className="ml-2 flex-shrink-0" />
+            <PiArrowRight size={14} className="ml-2 shrink-0" />
           </div>
         </div>
       </div>
