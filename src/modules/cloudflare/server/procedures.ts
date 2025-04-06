@@ -26,7 +26,7 @@ const getPublicUrl = cache((filename: string, folder: string) => {
 });
 
 export const cloudflareR2Router = createTRPCRouter({
-  getUploadUrl: protectedProcedure
+  createPresignedUrl: protectedProcedure
     .input(
       z.object({
         filename: z.string(),

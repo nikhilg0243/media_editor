@@ -25,7 +25,7 @@ export function usePhotoUpload({
   const [imageInfo, setImageInfo] = useState<TImageInfo | null>(null);
 
   const { mutateAsync: getUploadUrl } =
-    trpc.cloudflare.getUploadUrl.useMutation();
+    trpc.cloudflare.createPresignedUrl.useMutation();
 
   const handleUpload = async (file: File) => {
     try {
