@@ -38,7 +38,7 @@ A modern, open-source photography blog platform built with the latest web techno
 - **ORM:** [Drizzle](https://orm.drizzle.team/)
 - **Authentication:** [Better Auth](https://better-auth.com/)
 - **UI Components:** [Shadcn/ui](https://ui.shadcn.com/)
-- **API Layer:** [Hono.js](https://hono.dev/)
+- **API Layer:** [tRPC](https://trpc.io/)
 - **Storage:** [Cloudflare R2](https://www.cloudflare.com/products/r2/)
 - **Deployment:** [Vercel](https://vercel.com)
 
