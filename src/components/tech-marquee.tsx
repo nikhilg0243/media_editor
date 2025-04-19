@@ -4,7 +4,7 @@ import {
   SiNextdotjs,
   SiTailwindcss,
   SiTypescript,
-  SiHono,
+  SiTrpc,
   SiReactquery,
   SiShadcnui,
   SiAdobelightroomclassic,
@@ -35,8 +35,8 @@ const technologies = [
     name: "TypeScript",
   },
   {
-    icon: SiHono,
-    name: "Hono.js",
+    icon: SiTrpc,
+    name: "tRPC",
   },
   {
     icon: SiReactquery,
