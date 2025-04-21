@@ -40,6 +40,7 @@ export const BrandsLogo = ({
     ricoh: { src: "/Ricoh_logo.svg", width: 90, height: 30 },
     sigma: { src: "/Sigma_logo.svg", width: 80, height: 30 },
     apple: { src: "/Apple_logo.svg", width: 30, height: 35 },
+    dji: { src: "/DJI_logo.svg", width: 50, height: 30 },
   };
 
   // Case-insensitive search for brand that starts with the provided string
@@ -51,7 +52,7 @@ export const BrandsLogo = ({
   // If no brand matches, use placeholder
   const config = matchedBrand
     ? brandConfigs[matchedBrand]
-    : { src: "/placeholder.svg", width: 100, height: 50 };
+    : { src: "/placeholder.svg", width: 40, height: 40 };
 
   return (
     <Image
