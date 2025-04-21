@@ -8,9 +8,9 @@ import { ArrowLeft, Aperture, Clock, Image as ImageIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Suspense, useRef } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { SiSony } from "react-icons/si";
 import { motion } from "framer-motion";
 import Mapbox from "@/components/map";
+import { BrandsLogo } from "@/components/brands-logo";
 
 interface Props {
   id: string;
@@ -99,7 +99,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
             <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-white drop-shadow-lg tracking-tight leading-tight px-2">
               {data.title}
             </h1>
-            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-yellow-50 drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)] font-normal mt-1 sm:mt-2 px-2 bg-black/20 py-1 rounded-full mx-auto inline-block">
+            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-yellow-50 drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)] font-normal mt-1 sm:mt-2 px-4 bg-black/20 py-1 rounded-full mx-auto inline-block">
               {data.city}, {data.country}
             </h2>
           </motion.div>
@@ -136,7 +136,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
                 <p className="text-xs text-gray-500">{data.lensModel}</p>
               </div>
               <div className="flex items-center gap-2">
-                <SiSony size={40} className="sm:w-[50px]" />
+                <BrandsLogo brand={data.make || ""} />
                 <Separator
                   orientation="vertical"
                   className="hidden sm:block h-10 bg-gray-300"
