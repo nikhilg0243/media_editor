@@ -24,7 +24,7 @@ interface Props {
   className?: string;
 }
 
-const contactCard = ({ title, href, className }: Props) => {
+const ContactCard = ({ title, href, className }: Props) => {
   return (
     <Link
       href={href || " "}
@@ -53,4 +53,4 @@ const contactCard = ({ title, href, className }: Props) => {
   );
 };
 
-export default contactCard;
+export default ContactCard;

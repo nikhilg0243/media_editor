@@ -60,7 +60,8 @@ const ProfileCard = () => {
 
         <ContactCard
           title="Contact me"
-          className="bg-primary hover:bg-primary-hover text-white dark:text-black"
+          href="mailto:lianshiliang93@gmail.com"
+          className="bg-primary text-white hover:text-black dark:text-black dark:hover:text-white"
         />
       </div>
     </div>
