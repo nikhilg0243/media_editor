@@ -35,6 +35,42 @@ const PhotoScreensaver = ({ photos, className }: PhotoScreensaverProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const timeoutsRef = useRef<{ [key: number]: NodeJS.Timeout }>({});
 
+  // Handle fullscreen functionality
+  useEffect(() => {
+    const enterFullscreen = async () => {
+      if (containerRef.current && document.fullscreenEnabled) {
+        try {
+          await containerRef.current.requestFullscreen();
+        } catch (err) {
+          console.error("Error attempting to enable fullscreen:", err);
+        }
+      }
+    };
+    
+    // Handle click on the container to enter fullscreen
+    const handleClick = () => {
+      enterFullscreen();
+    };
+    
+    // Add click event listener
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener("click", handleClick);
+    }
+    
+    // Clean up event listeners when component unmounts
+    return () => {
+      if (container) {
+        container.removeEventListener("click", handleClick);
+      }
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(err => {
+          console.error("Error exiting fullscreen:", err);
+        });
+      }
+    };
+  }, []);
+
   useEffect(() => {
     if (!photos.length) return;
 
