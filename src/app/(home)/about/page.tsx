@@ -2,11 +2,11 @@
 import { type Metadata } from "next";
 
 // Internal dependencies - UI Components
-import Footer from "../_components/footer";
-import AboutCard from "../_components/about-card";
+import Footer from "../../../modules/home/ui/components/footer";
+import AboutCard from "../../../modules/home/ui/components/about-card";
 import TechMarquee from "@/components/tech-marquee";
-import CameraCard from "../_components/camera-card";
-import ProfileCard from "../_components/profile-card";
+import CameraCard from "../../../modules/home/ui/components/camera-card";
+import ProfileCard from "../../../modules/home/ui/components/profile-card";
 import CardContainer from "@/components/card-container";
 import VectorCombined from "@/components/vector-combined";
 import {

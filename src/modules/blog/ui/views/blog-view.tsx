@@ -1,5 +1,5 @@
-import ContactCard from "@/app/(home)/_components/contact-card";
-import Footer from "@/app/(home)/_components/footer";
+import ContactCard from "@/modules/home/ui/components/contact-card";
+import Footer from "@/modules/home/ui/components/footer";
 import CardContainer from "@/components/card-container";
 
 import {

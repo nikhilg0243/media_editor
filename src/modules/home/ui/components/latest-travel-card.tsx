@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PiArrowDown } from "react-icons/pi";
 
-const LatestWorkCard = () => {
+const LatestTravelCard = () => {
   return (
     <div className="p-4 lg:p-5 bg-muted rounded-xl w-full flex justify-between items-center">
       <div className="flex items-center gap-2">
@@ -19,4 +19,4 @@ const LatestWorkCard = () => {
   );
 };
 
-export default LatestWorkCard;
+export default LatestTravelCard;

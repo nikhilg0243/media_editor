@@ -3,9 +3,9 @@ import {
   PageTransitionItem,
 } from "@/components/page-transition";
 import { CitySetsSection } from "../sections/city-sets-section";
-import ProfileCard from "@/app/(home)/_components/profile-card";
-import LatestWorkCard from "@/app/(home)/_components/latest-work-card";
-import Footer from "@/app/(home)/_components/footer";
+import ProfileCard from "@/modules/home/ui/components/profile-card";
+import LatestTravelCard from "@/modules/home/ui/components/latest-travel-card";
+import Footer from "@/modules/home/ui/components/footer";
 import { ImageSliderSection } from "../sections/image-slider-section";
 
 export const HomeView = () => {
@@ -26,7 +26,7 @@ export const HomeView = () => {
 
         {/* LAST TRAVEL CARD  */}
         <PageTransitionItem>
-          <LatestWorkCard />
+          <LatestTravelCard />
         </PageTransitionItem>
 
         {/* CITY SETS CARD  */}

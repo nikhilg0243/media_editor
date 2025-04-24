@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Footer from "../../_components/footer";
-import ContactCard from "../../_components/contact-card";
+import Footer from "../../../../modules/home/ui/components/footer";
+import ContactCard from "../../../../modules/home/ui/components/contact-card";
 import VectorCombined from "@/components/vector-combined";
 import { ArrowDownIcon } from "lucide-react";
 

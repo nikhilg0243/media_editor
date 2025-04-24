@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import Footer from "@/app/(home)/_components/footer";
+import Footer from "@/modules/home/ui/components/footer";
 import {
   PageTransitionContainer,
   PageTransitionItem,

@@ -1,6 +1,6 @@
 "use client";
 
-import Footer from "@/app/(home)/_components/footer";
+import Footer from "@/modules/home/ui/components/footer";
 import BlurImage from "@/components/blur-image";
 import FlipCard from "@/components/flip-card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
