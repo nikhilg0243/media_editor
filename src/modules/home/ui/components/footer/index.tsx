@@ -34,7 +34,7 @@ const Footer = () => {
         />
         <FooterNav
           title="Utility"
-          links={[{ title: "Login", href: "/sign-in" }]}
+          links={[{ title: "Screensaver", href: "/screensaver" }]}
         />
       </div>
 
