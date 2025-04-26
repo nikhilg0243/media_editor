@@ -3,7 +3,7 @@ import PhotoScreensaver from "@/components/photo-screensaver";
 
 export default async function ScreensaverPage() {
   const data = await trpc.photos.getMany({
-    limit: 50,
+    limit: 32,
   });
 
   const formattedPhotos =

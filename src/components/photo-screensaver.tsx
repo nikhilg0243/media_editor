@@ -46,25 +46,25 @@ const PhotoScreensaver = ({ photos, className }: PhotoScreensaverProps) => {
         }
       }
     };
-    
+
     // Handle click on the container to enter fullscreen
     const handleClick = () => {
       enterFullscreen();
     };
-    
+
     // Add click event listener
     const container = containerRef.current;
     if (container) {
       container.addEventListener("click", handleClick);
     }
-    
+
     // Clean up event listeners when component unmounts
     return () => {
       if (container) {
         container.removeEventListener("click", handleClick);
       }
       if (document.fullscreenElement) {
-        document.exitFullscreen().catch(err => {
+        document.exitFullscreen().catch((err) => {
           console.error("Error exiting fullscreen:", err);
         });
       }
@@ -189,7 +189,7 @@ const PhotoScreensaver = ({ photos, className }: PhotoScreensaverProps) => {
                   src={photo.currentPhoto.url}
                   alt="Photo front"
                   fill
-                  quality={50}
+                  quality={20}
                   className="w-full h-full object-cover"
                 />
               </motion.div>
