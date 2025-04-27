@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-import PostContent from "./post-content";
+import { HydrateClient, trpc } from "@/trpc/server";
+import { BlogSlugView } from "@/modules/blog/ui/views/blog-slug-view";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -17,11 +18,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const BlogSlugPage = async ({ params }: Props) => {
   const slug = (await params).slug;
+  void trpc.blog.getOne({ slug });
 
   return (
-    <div className="w-full h-full">
-      <PostContent slug={slug} />
-    </div>
+    <HydrateClient>
+      <BlogSlugView slug={slug} />
+    </HydrateClient>
   );
 };
 

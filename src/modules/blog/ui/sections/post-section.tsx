@@ -5,9 +5,27 @@ import Footer from "../../../../modules/home/ui/components/footer";
 import ContactCard from "../../../../modules/home/ui/components/contact-card";
 import VectorCombined from "@/components/vector-combined";
 import { ArrowDownIcon } from "lucide-react";
+import { trpc } from "@/trpc/client";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { PostPreview } from "../components/post-preview";
 
-const PostContent = ({ slug }: { slug: string }) => {
-  console.log(slug);
+interface Props {
+  slug: string;
+}
+
+export const PostSection = ({ slug }: Props) => {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <ErrorBoundary fallback={<p>Something went wrong</p>}>
+        <PostSectionSuspense slug={slug} />
+      </ErrorBoundary>
+    </Suspense>
+  );
+};
+
+export const PostSectionSuspense = ({ slug }: Props) => {
+  const [data] = trpc.blog.getOne.useSuspenseQuery({ slug });
 
   return (
     <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row w-full">
@@ -15,7 +33,7 @@ const PostContent = ({ slug }: { slug: string }) => {
       <div className="w-full h-[50vh] lg:w-1/2 lg:fixed lg:top-0 lg:left-0 md:h-[80vh] lg:h-screen p-0 lg:p-3 group">
         <div className="block w-full h-full relative rounded-xl overflow-hidden">
           <Image
-            src="/placeholder.svg"
+            src={data.coverImage || "/placeholder.svg"}
             alt="Image"
             fill
             quality={75}
@@ -42,8 +60,8 @@ const PostContent = ({ slug }: { slug: string }) => {
           </div>
 
           <div className="mt-auto flex flex-col gap-3">
-            <h1 className="text-4xl">Title</h1>
-            <h2 className="font-light">Description</h2>
+            <h1 className="text-4xl">{data.title}</h1>
+            <h2 className="font-light">{data.description}</h2>
 
             <div className="mt-8">
               <button className="bg-background hover:bg-muted duration-150 transition-all flex items-center gap-1 py-[10px] pr-3 pl-[14px] rounded-lg">
@@ -57,12 +75,12 @@ const PostContent = ({ slug }: { slug: string }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
           <div className="bg-muted rounded-xl p-5 w-full flex justify-between">
             <p className="text-text-muted">Category</p>
-            <p>Travel</p>
+            <p>{data.tags}</p>
           </div>
 
           <div className="bg-muted rounded-xl p-5 w-full flex justify-between">
             <p className="text-text-muted">Reading Time</p>
-            <p>8 Min</p>
+            <p>{data.readingTimeMinutes} Min</p>
           </div>
 
           <div className="bg-muted rounded-xl p-5 w-full flex justify-between">
@@ -71,10 +89,13 @@ const PostContent = ({ slug }: { slug: string }) => {
           </div>
         </div>
 
+        <PostPreview content={data.content} />
+
         {/* CONTACT CARD  */}
         <ContactCard
           title="Contact me"
-          className="bg-primary hover:bg-primary-hover text-white dark:text-black h-16 font-light"
+          href="mailto:lianshiliang93@gmail.com"
+          className="bg-primary text-white hover:text-black dark:text-black dark:hover:text-white h-14"
         />
 
         {/* FOOTER  */}
@@ -83,5 +104,3 @@ const PostContent = ({ slug }: { slug: string }) => {
     </div>
   );
 };
-
-export default PostContent;

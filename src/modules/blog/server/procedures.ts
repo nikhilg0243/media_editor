@@ -3,6 +3,7 @@ import { posts } from "@/db/schema/posts";
 import { db } from "@/db/drizzle";
 import { z } from "zod";
 import { and, eq, lt, or, desc } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 
 export const blogRouter = createTRPCRouter({
   getMany: baseProcedure
@@ -54,7 +55,26 @@ export const blogRouter = createTRPCRouter({
 
       return { items, nextCursor };
     }),
+  getOne: baseProcedure
+    .input(z.object({ slug: z.string() }))
+    .query(async ({ input }) => {
+      const { slug } = input;
 
+      const [blog] = await db
+        .select()
+        .from(posts)
+        .where(and(eq(posts.visibility, "public"), eq(posts.slug, slug)))
+        .limit(1);
+
+      if (!blog) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Blog not found",
+        });
+      }
+
+      return blog;
+    }),
   getLatest: baseProcedure.query(async () => {
     const [data] = await db
       .select()
