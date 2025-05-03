@@ -44,7 +44,8 @@ export const BrandsLogo = ({
   };
 
   // Case-insensitive search for brand that starts with the provided string
-  const normalizedBrand = brand.toLowerCase();
+  const normalizedBrand = brand.replace(/\s+/g, "").toLowerCase();
+
   const matchedBrand = Object.keys(brandConfigs).find((brandKey) =>
     brandKey.startsWith(normalizedBrand)
   );
