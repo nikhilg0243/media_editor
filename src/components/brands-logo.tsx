@@ -1,3 +1,11 @@
+import Image from "next/image";
+
+type BrandConfigType = {
+  src: string;
+  width: number;
+  height: number;
+};
+
 /**
  * BrandsLogo component displays a brand logo like Canon, Nikon, etc.
  *
@@ -6,14 +14,6 @@
  * @param {number} height - Optional height of the brand logo.
  * @returns {JSX.Element} - The BrandsLogo component.
  */
-
-import Image from "next/image";
-
-type BrandConfigType = {
-  src: string;
-  width: number;
-  height: number;
-};
 
 export const BrandsLogo = ({
   brand,

@@ -6,7 +6,18 @@ interface Props {
   style?: string;
 }
 
-const AnimatedText = ({ label, label2, style }: Props) => {
+/**
+ * WordRotate component displays a vertical rotation of different words when user hover it
+ * @preview ![img]() - https://p.ecarry.me/components/word-rotate
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.label - first word
+ * @param {string} props.label2 - second word
+ * @param {string} props.style - Component styles
+ * @returns {JSX.Element} JSX Element
+ */
+
+const WordRotate = ({ label, label2, style }: Props) => {
   return (
     <div
       className="relative inline-block overflow-hidden"
@@ -29,4 +40,4 @@ const AnimatedText = ({ label, label2, style }: Props) => {
   );
 };
 
-export default AnimatedText;
+export default WordRotate;

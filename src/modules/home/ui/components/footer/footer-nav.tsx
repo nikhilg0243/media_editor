@@ -1,4 +1,4 @@
-import AnimatedLink from "@/components/animated-link";
+import LinkRotate from "@/components/link-rotate";
 
 interface Props {
   title: string;
@@ -15,7 +15,7 @@ const FooterNav = ({ title, links }: Props) => {
       <ul className="flex flex-col items-center lg:items-start gap-3 lg:gap-5 text-sm opacity-60">
         {links.map((link) => (
           <li key={link.href}>
-            <AnimatedLink
+            <LinkRotate
               link={link.href}
               label={link.title}
               className="text-text-default dark:text-text-inverse"

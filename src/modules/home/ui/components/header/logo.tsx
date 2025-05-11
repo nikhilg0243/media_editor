@@ -1,16 +1,12 @@
 import Link from "next/link";
-import AnimatedText from "@/components/animated-text";
+import WordRotate from "@/components/word-rotate";
 import { RiCameraLensFill } from "react-icons/ri";
 
 const Logo = () => {
   return (
     <Link href="/" className="flex gap-2 items-center">
       <RiCameraLensFill size={18} />
-      <AnimatedText
-        label="ECarry"
-        label2="Photo"
-        style="font-medium uppercase"
-      />
+      <WordRotate label="ECarry" label2="Photo" style="font-medium uppercase" />
     </Link>
   );
 };

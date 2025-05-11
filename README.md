@@ -18,11 +18,11 @@ A modern, open-source photography blog platform built with the latest web techno
 
 ## 📸 Screenshots
 
-<img src="https://github.com/ECarry/photography-website/blob/main/screen/home.png?raw=true" alt="page">
-<img src="https://github.com/ECarry/photography-website/blob/main/screen/travel.png?raw=true" alt="page">
-<img src="https://github.com/ECarry/photography-website/blob/main/screen/discover.png?raw=true" alt="page">
-<img src="https://github.com/ECarry/photography-website/blob/main/screen/about.png?raw=true" alt="page">
-<img src="https://github.com/ECarry/photography-website/blob/main/screen/photograph.png?raw=true" alt="page">
+<img src="https://github.com/ECarry/photography-website/blob/main/docs/screen/home.png?raw=true" alt="page">
+<img src="https://github.com/ECarry/photography-website/blob/main/docs/screen/travel.png?raw=true" alt="page">
+<img src="https://github.com/ECarry/photography-website/blob/main/docs/screen/discover.png?raw=true" alt="page">
+<img src="https://github.com/ECarry/photography-website/blob/main/docs/screen/about.png?raw=true" alt="page">
+<img src="https://github.com/ECarry/photography-website/blob/main/docs/screen/photograph.png?raw=true" alt="page">
 
 ## 🌈 Support Theme
 
@@ -154,5 +154,5 @@ If you find this project helpful, please give it a ⭐️ on GitHub!
 - [x] Home page with tRPC
 - [x] Discover page with tRPC
 - [x] Dashboard photos & photo id page with tRPC
-- [ ] Blog page with tRPC
+- [x] Blog page with tRPC
 - [x] Travel page with tRPC

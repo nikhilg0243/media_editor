@@ -7,7 +7,18 @@ interface Props {
   className?: string;
 }
 
-const AnimatedLink = ({ link, label, className }: Props) => {
+/**
+ * LinkRotate component displays a vertical rotation of link when user hover it
+ * @preview ![img]() - https://p.ecarry.me/components/link-rotate
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.link - Url string
+ * @param {string} props.label - Url label
+ * @param {string} props.classname - Component styles
+ * @returns {JSX.Element} JSX Element
+ */
+
+const LinkRotate = ({ link, label, className }: Props) => {
   return (
     <div className="relative inline-block overflow-hidden">
       <Link
@@ -31,4 +42,4 @@ const AnimatedLink = ({ link, label, className }: Props) => {
   );
 };
 
-export default AnimatedLink;
+export default LinkRotate;
