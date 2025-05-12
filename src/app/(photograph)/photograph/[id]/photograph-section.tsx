@@ -94,13 +94,13 @@ const PhotographSectionSuspense = ({ id }: Props) => {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-full text-center space-y-1 sm:space-y-2 max-w-4xl mx-auto"
+            className="w-full text-center space-y-1 max-w-4xl mx-auto"
           >
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-white drop-shadow-lg tracking-tight leading-tight px-2">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white drop-shadow-lg tracking-tight leading-tight px-2 line-clamp-1">
               {data.title}
             </h1>
-            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-yellow-50 drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)] font-normal mt-1 sm:mt-2 px-4 bg-black/20 py-1 rounded-full mx-auto inline-block">
-              {data.city}, {data.country}
+            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl text-yellow-50 drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)] font-normal mt-1 sm:mt-2 px-4 bg-black/20 py-1 rounded-full mx-auto inline-block">
+              {data.city}, {data.countryCode}
             </h2>
           </motion.div>
 
@@ -109,7 +109,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="p-4 pb-0 bg-white/95 relative w-auto max-h-[70dvh] shadow-2xl"
+            className="pb-0 bg-white/95 relative w-auto max-h-[70dvh] shadow-2xl"
           >
             <BlurImage
               src={data.url}
@@ -118,7 +118,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
               height={data.height}
               blurhash={data.blurData}
               className="w-auto max-h-[65dvh]"
-              priority
+              priority={false}
             />
 
             <div className="absolute -bottom-10 left-0 px-6 py-2 w-full bg-white/95 flex justify-between items-center select-none text-gray-900 shadow-md">
@@ -137,34 +137,38 @@ const PhotographSectionSuspense = ({ id }: Props) => {
               </div>
               <div className="flex items-center gap-2">
                 <BrandsLogo brand={data.make || ""} />
-                <Separator
-                  orientation="vertical"
-                  className="hidden sm:block h-10 bg-gray-300"
-                />
-                <div className="hidden sm:flex flex-col gap-[2px]">
-                  <div className="space-x-[6px] text-xs lg:text-sm font-mono text-gray-800">
-                    <span>{data.focalLength35mm + "mm"}</span>
-                    <span>{"ƒ/" + data.fNumber}</span>
-                    <span>
-                      {data.exposureTime &&
-                        formatExposureTime(data.exposureTime)}
-                    </span>
-                    <span>{"ISO" + data.iso}</span>
-                  </div>
-                  <div className="flex items-center text-xs text-gray-500">
-                    <p>
-                      {data.dateTimeOriginal &&
-                        new Date(data.dateTimeOriginal).toLocaleDateString(
-                          "en-US",
-                          {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          }
-                        )}
-                    </p>
-                  </div>
-                </div>
+                {data.aspectRatio >= 1 && (
+                  <>
+                    <Separator
+                      orientation="vertical"
+                      className="hidden sm:block h-10 bg-gray-300"
+                    />
+                    <div className="hidden sm:flex flex-col gap-[2px]">
+                      <div className="space-x-[6px] text-xs lg:text-sm font-mono text-gray-800">
+                        <span>{data.focalLength35mm + "mm"}</span>
+                        <span>{"ƒ/" + data.fNumber}</span>
+                        <span>
+                          {data.exposureTime &&
+                            formatExposureTime(data.exposureTime)}
+                        </span>
+                        <span>{"ISO" + data.iso}</span>
+                      </div>
+                      <div className="flex items-center text-xs text-gray-500">
+                        <p>
+                          {data.dateTimeOriginal &&
+                            new Date(data.dateTimeOriginal).toLocaleDateString(
+                              "en-US",
+                              {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              }
+                            )}
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>
@@ -174,23 +178,20 @@ const PhotographSectionSuspense = ({ id }: Props) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 1.5 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white"
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white"
           >
-            <div className="flex flex-col items-center gap-2">
-              <p className="text-sm font-light">Scroll for details</p>
-              <div className="w-6 h-10 border-2 border-white/60 rounded-full flex justify-center">
-                <motion.div
-                  animate={{
-                    y: [0, 12, 0],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    repeatType: "loop",
-                  }}
-                  className="w-2 h-2 bg-white rounded-full mt-2"
-                />
-              </div>
+            <div className="w-6 h-10 border-2 border-white/60 rounded-full flex justify-center">
+              <motion.div
+                animate={{
+                  y: [0, 12, 0],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                }}
+                className="w-2 h-2 bg-white rounded-full mt-2"
+              />
             </div>
           </motion.div>
         </div>
