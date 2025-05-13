@@ -48,8 +48,9 @@ A modern, open-source photography blog platform built with the latest web techno
 
 - Node.js 20+
 - bun (recommended) or npm
-- Neon Database
-- Cloudflare R2 Account
+- [Neon Database](https://neon.tech/)
+- [Cloudflare R2 Account](https://www.cloudflare.com/products/r2/)
+- [Mapbox Account](https://console.mapbox.com/)
 
 ### Environment Variables
 
@@ -57,9 +58,10 @@ Create a `.env.local` file in the root directory:
 
 ```bash
 # Database
-DATABASE_URL=your_neon_database_url
+DATABASE_URL=your_database_url
 
 # Auth
+# You can generate a random secret using `openssl rand -base64 32`
 BETTER_AUTH_SECRET=
 BETTER_AUTH_URL=http://localhost:3000 #Base URL of your app
 
