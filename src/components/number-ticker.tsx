@@ -12,6 +12,11 @@ interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
   decimalPlaces?: number;
 }
 
+/**
+ * NumberTicker component displays a number ticker.
+ *
+ * @returns {JSX.Element} - The NumberTicker component.
+ */
 export function NumberTicker({
   value,
   direction = "up",

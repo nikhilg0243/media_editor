@@ -7,6 +7,11 @@ interface MarqueeCardProps {
   pauseOnHover?: boolean;
 }
 
+/**
+ * MarqueeCard component displays a marquee card.
+ *
+ * @returns {JSX.Element} - The MarqueeCard component.
+ */
 export function MarqueeCard({
   children,
   className,

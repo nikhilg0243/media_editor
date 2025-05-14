@@ -11,6 +11,15 @@ interface CarouselProps {
   autoplayDelay?: number;
 }
 
+/**
+ * Carousel component displays a carousel of images.
+ *
+ * @param {ReactNode} children - The children of the Carousel component.
+ * @param {string} className - Optional className for the component.
+ * @param {string} containerClassName - Optional className for the container.
+ * @param {number} autoplayDelay - Optional autoplay delay in milliseconds.
+ * @returns {JSX.Element} - The Carousel component.
+ */
 const Carousel = ({
   children,
   className = "",

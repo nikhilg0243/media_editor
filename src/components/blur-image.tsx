@@ -8,6 +8,18 @@ interface BlurImageProps extends Omit<ImageProps, "onLoad"> {
   blurhash: string;
 }
 
+/**
+ * BlurImage component displays an image with a blurhash placeholder.
+ *
+ * @param {string} src - The source of the image.
+ * @param {string} alt - The alt text of the image.
+ * @param {number} width - The width of the image.
+ * @param {number} height - The height of the image.
+ * @param {string} fill - The fill of the image.
+ * @param {string} className - Optional className for the component.
+ * @param {string} blurhash - The blurhash of the image.
+ * @returns {JSX.Element} - The BlurImage component.
+ */
 const BlurImage = memo(function BlurImage({
   src,
   alt,

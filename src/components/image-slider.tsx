@@ -12,6 +12,11 @@ import { Skeleton } from "./ui/skeleton";
 import { trpc } from "@/trpc/client";
 import { ErrorBoundary } from "react-error-boundary";
 
+/**
+ * ImageSlider component displays a carousel of images.
+ *
+ * @returns {JSX.Element} - The ImageSlider component.
+ */
 export const ImageSlider = () => {
   return (
     <Suspense fallback={<Skeleton className="size-full" />}>

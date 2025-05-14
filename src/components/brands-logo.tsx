@@ -9,9 +9,10 @@ type BrandConfigType = {
 /**
  * BrandsLogo component displays a brand logo like Canon, Nikon, etc.
  *
- * @param {string} brand - The brand name.
+ * @param {string} brand - The brand name (e.g., "Canon", "Nikon", "Sony", "Fujifilm", "Hasselblad", "Leica", "Lumix", "Olympus", "Pentax", "Ricoh", "Sigma", "Apple", "DJI").
  * @param {number} width - Optional width of the brand logo.
  * @param {number} height - Optional height of the brand logo.
+ * @param {string} className - Optional className for the component.
  * @returns {JSX.Element} - The BrandsLogo component.
  */
 

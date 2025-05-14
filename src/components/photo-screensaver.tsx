@@ -18,6 +18,14 @@ const GRID_SIZE = 8; // 5x5 grid
 const FLIP_INTERVAL = 3000; // 3 seconds between selecting new photo to flip
 const ANIMATION_DURATION = 1.8; // 1.8 seconds for each flip
 
+/**
+ * PhotoScreensaver component displays a photo screensaver like mac Album Artwork.
+ * @preview - https://p.ecarry.me/screensaver
+ *
+ * @param {Array<{ id: string; url: string; blurData: string }>} photos - The photos to display.
+ * @param {string} className - Optional className for the component.
+ * @returns {JSX.Element} - The PhotoScreensaver component.
+ */
 const PhotoScreensaver = ({ photos, className }: PhotoScreensaverProps) => {
   const [grid, setGrid] = useState<
     Array<{

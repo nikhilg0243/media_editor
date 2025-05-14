@@ -10,6 +10,13 @@ interface Props {
   href: string;
 }
 
+/**
+ * FlipLink component displays a flip link.
+ *
+ * @param {string} children - The children of the FlipLink component.
+ * @param {string} href - The href of the FlipLink component.
+ * @returns {JSX.Element} - The FlipLink component.
+ */
 const FlipLink = ({ children, href }: Props) => {
   return (
     <motion.a

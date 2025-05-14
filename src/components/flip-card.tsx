@@ -8,6 +8,23 @@ import { useState } from "react";
 import { AiOutlineFullscreen } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 
+/**
+ * FlipCard component displays a flip card.
+ *
+ * @param {string} id - The id of the card.
+ * @param {string} image - The image of the card.
+ * @param {string} title - The title of the card.
+ * @param {string} location - The location of the card.
+ * @param {string} camera - The camera of the card.
+ * @param {string} blurData - The blur data of the card.
+ * @param {number} focalLength - The focal length of the card.
+ * @param {number} fNumber - The f number of the card.
+ * @param {number} exposureTime - The exposure time of the card.
+ * @param {number} iso - The iso of the card.
+ * @param {"x" | "y"} rotate - The rotate of the card.
+ * @param {string} className - Optional className for the component.
+ * @returns {JSX.Element} - The FlipCard component.
+ */
 interface FlipCardProps extends React.HTMLAttributes<HTMLDivElement> {
   id: string;
   image: string;
@@ -130,7 +147,10 @@ export default function FlipCard({
                     <span className="text-white text-xs lg:text-sm font-light">
                       ƒ/{fNumber}
                     </span>
-                    <Separator orientation="vertical" className="h-4 opacity-70" />
+                    <Separator
+                      orientation="vertical"
+                      className="h-4 opacity-70"
+                    />
                   </>
                 )}
                 {exposureTime && (
@@ -138,7 +158,10 @@ export default function FlipCard({
                     <span className="text-white text-xs lg:text-sm font-light">
                       {formatExposureTime(exposureTime)}
                     </span>
-                    <Separator orientation="vertical" className="h-4 opacity-70" />
+                    <Separator
+                      orientation="vertical"
+                      className="h-4 opacity-70"
+                    />
                   </>
                 )}
                 {iso && (
@@ -146,7 +169,10 @@ export default function FlipCard({
                     <span className="text-white text-xs lg:text-sm font-light">
                       ISO{iso}
                     </span>
-                    <Separator orientation="vertical" className="h-4 opacity-70" />
+                    <Separator
+                      orientation="vertical"
+                      className="h-4 opacity-70"
+                    />
                   </>
                 )}
                 {focalLength && (

@@ -11,6 +11,11 @@ interface InfiniteScrollProps {
   fetchNextPage: () => void;
 }
 
+/**
+ * InfiniteScroll component displays a infinite scroll.
+ *
+ * @returns {JSX.Element} - The InfiniteScroll component.
+ */
 export const InfiniteScroll = ({
   isManual,
   hasNextPage,
