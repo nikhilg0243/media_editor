@@ -76,7 +76,7 @@ const PhotographSectionSuspense = ({ id }: Props) => {
         </button>
 
         {/* Blurhash background layer */}
-        <div className="absolute inset-0 -z-10 after:absolute after:inset-0 after:bg-black/40">
+        <div className="fixed inset-0 -z-10 after:fixed after:inset-0 after:bg-black/40">
           <BlurImage
             src={data.url}
             alt={data.title}
@@ -203,16 +203,6 @@ const PhotographSectionSuspense = ({ id }: Props) => {
         className="min-h-screen relative text-white py-12 px-4 sm:px-6 lg:px-8"
       >
         {/* Blurhash background layer */}
-        <div className="absolute inset-0 -z-10 after:absolute after:inset-0 after:bg-black/80">
-          <BlurImage
-            src={data.url}
-            alt={data.title}
-            fill
-            blurhash={data.blurData}
-            className="object-cover blur-sm"
-            priority
-          />
-        </div>
 
         <div className="max-w-7xl mx-auto">
           {/* Grid Header */}
