@@ -39,7 +39,7 @@ const Footer = () => {
       </div>
 
       {/* Attribution */}
-      <div className="text-sm">
+      <div className="text-xs md:text-sm text-center md:text-left">
         <p>
           <span className="opacity-60">© Design by </span>
           <a
