@@ -29,6 +29,7 @@ import {
 // Internal dependencies - Hooks
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -38,6 +39,7 @@ const formSchema = z.object({
 });
 
 export default function SignIn() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -48,22 +50,26 @@ export default function SignIn() {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await signIn.email({
-      ...values,
-      callbackURL: "/dashboard",
-      fetchOptions: {
-        onRequest: () => {
-          setLoading(true);
-        },
-        onResponse: () => {
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    setLoading(true);
+
+    signIn.email(
+      {
+        email: values.email,
+        password: values.password,
+      },
+      {
+        onSuccess: () => {
+          toast.success("Login successful");
           setLoading(false);
+          router.push("/dashboard");
         },
         onError: (ctx) => {
           toast.error(ctx.error.message);
+          setLoading(false);
         },
-      },
-    });
+      }
+    );
   };
 
   return (
