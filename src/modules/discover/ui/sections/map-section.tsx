@@ -39,7 +39,11 @@ const MapSectionSuspense = () => {
         (
           photo
         ): photo is typeof photo & { longitude: number; latitude: number } =>
-          photo.longitude !== null && photo.latitude !== null
+          photo.longitude !== null && 
+          photo.latitude !== null &&
+          photo.blurData && 
+          typeof photo.blurData === 'string' && 
+          photo.blurData.length > 0
       )
       .map((photo) => ({
         id: photo.id,

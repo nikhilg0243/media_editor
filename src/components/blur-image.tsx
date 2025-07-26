@@ -33,10 +33,13 @@ const BlurImage = memo(function BlurImage({
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const containerStyle = fill ? "absolute inset-0" : "relative w-full h-full";
+  
+  // Validate blurhash to prevent RangeError
+  const isValidBlurhash = blurhash && typeof blurhash === 'string' && blurhash.length > 0;
 
   return (
     <div className={containerStyle}>
-      {!imageLoaded && (
+      {!imageLoaded && isValidBlurhash && (
         <div className={`absolute inset-0 ${className}`}>
           <Blurhash
             hash={blurhash}
