@@ -43,7 +43,7 @@ const MapSectionSuspense = () => {
           photo.latitude !== null &&
           photo.blurData && 
           typeof photo.blurData === 'string' && 
-          photo.blurData.length > 0
+          photo.blurData.length >= 6
       )
       .map((photo) => ({
         id: photo.id,
